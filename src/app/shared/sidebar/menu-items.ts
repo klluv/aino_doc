@@ -1,5 +1,6 @@
 import { RouteInfo } from './sidebar.metadata';
 
+
 export const ROUTES: RouteInfo[] = [
  
   {
@@ -11,8 +12,8 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/list',
-    title: 'List',
+    path: '/component/list-all-role',
+    title: 'List All Role',
     icon: 'bi bi-list',
     class: '',
     extralink: false,

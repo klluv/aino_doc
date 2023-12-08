@@ -8,7 +8,7 @@ import { BadgeComponent } from './badge/badge.component';
 import { NgbdButtonsComponent } from './buttons/buttons.component';
 import { CardsComponent } from './card/card.component';
 import { TableComponent } from './table/table.component';
-import { ListsComponent } from './lists/lists.component';
+import { ListAllRoleComponent } from './list-all-role/list-all-role.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -48,9 +48,9 @@ export const ComponentsRoutes: Routes = [
 				component: NgbdButtonsComponent
 			},
 			{
-				path: 'list',
-				component: ListsComponent
-			}
+				path: 'list-all-role',
+				component: ListAllRoleComponent
+			},
 		]
 	}
 ];
