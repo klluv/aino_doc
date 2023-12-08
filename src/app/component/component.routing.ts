@@ -9,6 +9,8 @@ import { NgbdButtonsComponent } from './buttons/buttons.component';
 import { CardsComponent } from './card/card.component';
 import { TableComponent } from './table/table.component';
 import { ListAllRoleComponent } from './list-all-role/list-all-role.component';
+import { ListAllApplicationComponent } from './list-all-app/list-all-app.component';
+import { ListAllDivisionComponent } from './list-all-division/list-all-division.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -51,6 +53,14 @@ export const ComponentsRoutes: Routes = [
 				path: 'list-all-role',
 				component: ListAllRoleComponent
 			},
+			{
+				path: 'list-all-division',
+				component: ListAllDivisionComponent
+			},
+			{
+				path: 'list-all-app',
+				component: ListAllApplicationComponent
+			}
 		]
 	}
 ];

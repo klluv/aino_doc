@@ -20,6 +20,22 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
+    path: '/component/list-all-division',
+    title: 'List All Division',
+    icon: 'bi bi-list',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/component/list-all-app',
+    title: 'List All Application',
+    icon: 'bi bi-list',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     path: '/component/alert',
     title: 'Alert',
     icon: 'bi bi-bell',

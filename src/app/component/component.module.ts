@@ -13,6 +13,8 @@ import { NgbdButtonsComponent } from './buttons/buttons.component';
 import { CardsComponent } from './card/card.component';
 import { TableComponent } from "./table/table.component";
 import { ListAllRoleComponent } from './list-all-role/list-all-role.component';
+import { ListAllDivisionComponent } from './list-all-division/list-all-division.component';
+import { ListAllApplicationComponent } from './list-all-app/list-all-app.component';
 
 @NgModule({
   imports: [
@@ -30,8 +32,9 @@ import { ListAllRoleComponent } from './list-all-role/list-all-role.component';
     TableComponent
   ],
   declarations: [
-  
-    ListAllRoleComponent
+      ListAllRoleComponent,
+       ListAllDivisionComponent,
+       ListAllApplicationComponent
   ],
 })
 export class ComponentsModule { }

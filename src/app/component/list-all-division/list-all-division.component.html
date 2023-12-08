@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card mt-5">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0" style="color: aliceblue;">List All Division</h3>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let itemDiv of dataListDivision" class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="mb-1">{{ itemDiv.division_title }}</h5>
+                <p class="mb-1 text-muted">Order: {{ itemDiv.division_order }}</p>
+                <p class="mb-1 text-muted">Code: {{ itemDiv.division_code }}</p>
+                <p class="mb-1 text-muted">By: {{ itemDiv.created_by }}</p>
+                <p class="mb-1 text-muted">Created At: {{ itemDiv.created_at | date: 'medium' }}</p>
+              </div>
+              <div>
+                <button class="btn btn-outline-primary" [routerLink]="['/edit-division/', itemDiv.division_uuid]">Edit</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
