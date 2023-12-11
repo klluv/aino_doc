@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; 
 
 @Component({
   selector: 'app-login',
@@ -32,7 +32,7 @@ export class LoginComponent {
         icon: "success"
       });      
       this.cookieService.set('userToken', response.data.token);
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl('/main/dashboard');
     })
     .catch((error) => {
       if(error.response.status === 401) {

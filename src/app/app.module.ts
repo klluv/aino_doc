@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FullComponent } from './layouts/full/full.component';
 
+import { AuthGuard } from './auth/auth.guard';
 
 import { NavigationComponent } from './shared/header/navigation.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
@@ -47,6 +48,7 @@ import { LoginComponent } from './login/login.component';
       provide: LocationStrategy,
       useClass: PathLocationStrategy
     },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

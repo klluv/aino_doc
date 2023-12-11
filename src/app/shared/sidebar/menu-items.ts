@@ -4,7 +4,7 @@ import { RouteInfo } from './sidebar.metadata';
 export const ROUTES: RouteInfo[] = [
  
   {
-    path: '/dashboard',
+    path: '/main/dashboard',
     title: 'Dashboard',
     icon: 'bi bi-speedometer2',
     class: '',
@@ -12,7 +12,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/list-all-role',
+    path: '/main/component/list-all-role',
     title: 'List All Role',
     icon: 'bi bi-list',
     class: '',
@@ -20,7 +20,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/list-all-division',
+    path: '/main/component/list-all-division',
     title: 'List All Division',
     icon: 'bi bi-list',
     class: '',
@@ -28,7 +28,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/list-all-app',
+    path: '/main/component/list-all-app',
     title: 'List All Application',
     icon: 'bi bi-list',
     class: '',
@@ -36,7 +36,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/alert',
+    path: '/main/component/alert',
     title: 'Alert',
     icon: 'bi bi-bell',
     class: '',
@@ -44,7 +44,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/badges',
+    path: '/main/component/badges',
     title: 'Badges',
     icon: 'bi bi-patch-check',
     class: '',
@@ -52,7 +52,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/buttons',
+    path: '/main/component/buttons',
     title: 'Button',
     icon: 'bi bi-hdd-stack',
     class: '',
@@ -60,7 +60,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/card',
+    path: '/main/component/card',
     title: 'Card',
     icon: 'bi bi-card-text',
     class: '',
@@ -68,7 +68,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/dropdown',
+    path: '/main/component/dropdown',
     title: 'Dropdown',
     icon: 'bi bi-menu-app',
     class: '',
@@ -76,7 +76,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/pagination',
+    path: '/main/component/pagination',
     title: 'Pagination',
     icon: 'bi bi-dice-1',
     class: '',
@@ -84,7 +84,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/nav',
+    path: '/main/component/nav',
     title: 'Nav',
     icon: 'bi bi-pause-btn',
     class: '',
@@ -92,7 +92,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/table',
+    path: '/main/component/table',
     title: 'Table',
     icon: 'bi bi-layout-split',
     class: '',
@@ -100,7 +100,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/add-user',
+    path: '/main/component/add-user',
     title: 'Add User',
     icon: 'bi bi-person-plus',
     class: '',
@@ -108,7 +108,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/about',
+    path: '/main/about',
     title: 'About',
     icon: 'bi bi-people',
     class: '',
