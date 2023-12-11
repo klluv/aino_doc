@@ -100,6 +100,14 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
+    path: '/component/add-user',
+    title: 'Add User',
+    icon: 'bi bi-person-plus',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     path: '/about',
     title: 'About',
     icon: 'bi bi-people',
@@ -107,5 +115,12 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: []
   },
-  
+  {
+    path: '/login',
+    title: 'Login',
+    icon: 'bi bi-box-arrow-in-right',
+    class: '',
+    extralink: false,
+    submenu: []
+  }
 ];

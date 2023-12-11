@@ -14,6 +14,11 @@ export class LoginComponent {
     user_email: '',
     user_password: '',
   };
+  showPassword: boolean = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   constructor(private router: Router, private cookieService: CookieService) {}
   

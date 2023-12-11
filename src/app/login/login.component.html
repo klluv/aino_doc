@@ -23,8 +23,11 @@
               <label for="user_password" class="form-label">Password</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-lock"></i></span> <!-- Menambahkan ikon lock -->
-                <input type="password" id="user_password" name="user_password" data-test="user_password"
+                <input type="{{ showPassword ? 'text' : 'password' }}" id="user_password" name="user_password" data-test="user_password"
                   class="form-control" placeholder="Enter your password" [(ngModel)]="loginData.user_password" required>
+                <button class="btn btn-outline-secondary" type="button" id="showPasswordToggle" (click)="togglePasswordVisibility()">
+                  {{ showPassword ? 'Hide' : 'Show' }}
+                </button>
               </div>
             </div>
             <div class="d-grid">
