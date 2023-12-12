@@ -117,6 +117,9 @@ export class NavigationComponent implements AfterViewInit {
 
   ngAfterViewInit() { }
 
+  onProfile() {
+    this.router.navigateByUrl('/main/profile');
+  }
   onLogout() {
     Swal.fire({
       title: 'Logout Confirmation',

@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './login/login.component';
-
+  
 import { AuthGuard } from './auth/auth.guard';
 
 export const Approutes: Routes = [
@@ -32,6 +32,10 @@ export const Approutes: Routes = [
       {
         path: 'component',
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
       }
     ]
   },
