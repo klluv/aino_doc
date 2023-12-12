@@ -12,7 +12,7 @@ import { ListAllRoleComponent } from './list-all-role/list-all-role.component';
 import { ListAllApplicationComponent } from './list-all-app/list-all-app.component';
 import { ListAllDivisionComponent } from './list-all-division/list-all-division.component';
 import { AddUserComponent } from './add-user/add-user.component';
-
+import { AddDataComponent } from './add-data/add-data.component';
 
 export const ComponentsRoutes: Routes = [
 	{
@@ -65,6 +65,10 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'add-user',
 				component: AddUserComponent
+			},
+			{
+				path: 'add-data',
+				component: AddDataComponent,
 			}
 		]
 	}

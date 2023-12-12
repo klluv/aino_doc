@@ -12,6 +12,14 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
+    path: '/main/component/add-data',
+    title: 'Add Data',
+    icon: 'bi bi-plus-circle',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     path: '/main/component/list-all-role',
     title: 'List All Role',
     icon: 'bi bi-list',

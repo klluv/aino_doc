@@ -16,6 +16,7 @@ import { ListAllRoleComponent } from './list-all-role/list-all-role.component';
 import { ListAllDivisionComponent } from './list-all-division/list-all-division.component';
 import { ListAllApplicationComponent } from './list-all-app/list-all-app.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { AddDataComponent } from './add-data/add-data.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { AddUserComponent } from './add-user/add-user.component';
       ListAllRoleComponent,
        ListAllDivisionComponent,
        ListAllApplicationComponent,
-       AddUserComponent
+       AddUserComponent,
+       AddDataComponent,
   ],
 })
 export class ComponentsModule { }

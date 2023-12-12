@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
 import { Router } from '@angular/router';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 interface Application {
   application_uuid: string;
@@ -19,13 +20,14 @@ interface Application {
 @Component({
   selector: 'app-list-all-app',
   templateUrl: './list-all-app.component.html',
-  styleUrls: ['./list-all-app.component.css']
+  styleUrls: ['./list-all-app.component.scss']
 })
 export class ListAllApplicationComponent {
   
  constructor(private router: Router) {}
 
   dataListApplication: Application[] = [];
+  
 
   ngOnInit(): void {
     this.fetchDataApplication()
