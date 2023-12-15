@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
+import Swal from 'sweetalert2';
+
+
+declare var $: any;
 
 
 interface Application {
@@ -24,9 +29,15 @@ interface Application {
   styleUrls: ['./application.component.scss']
 })
 export class ApplicationComponent {
-  constructor(private router: Router) {}
+
+  application_code: string = '';
+  application_title: string = '';
+  application_description: string = '';
+  
+  constructor(private router: Router, private cookieService: CookieService) {}
 
   dataListApplication: Application[] = [];
+
   
 
   ngOnInit(): void {
@@ -46,7 +57,62 @@ export class ApplicationComponent {
     })
   }
 
-  addApplication() {
-    
+  addApplicationModal() {
+    $('#addApplicationModal').modal('show');
   }
-}
+
+  addApplication() {
+    const token = this.cookieService.get('userToken');
+
+    axios.post(`http://localhost:8080/superadmin/application/add`,
+    { application_code: this.application_code, application_title: this.application_title, application_description: this.application_description }, 
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then((response) => {
+      console.log(response.data.message);
+      Swal.fire({
+        title: 'Success',
+        text: response.data.message,
+        icon: 'success'
+      });
+    })
+    .catch((error) => {
+      if(error.response.status === 400) {
+        Swal.fire({
+          title: 'Error',
+          text: error.response.data.message,
+          icon: 'error'
+        });
+      } else if(error.response.status === 422) {
+        Swal.fire({
+          title: 'Error',
+          text: error.response.data.message,
+          icon: 'error'
+        });
+      } else if (error.response.status === 500) {
+        Swal.fire({
+          title: 'Error',
+          text: error.response.data.message,
+          icon: 'error'
+        });
+      } else {
+        Swal.fire({
+          title: 'Error',
+          text: 'Terjadi kesalahan',
+          icon: 'error'
+        });
+      }
+    });
+  }
+  openEditModal(application_uuid: string): void {
+    $('#editApplicationModal').modal('show');
+
+  }
+
+  openModal() {
+    $('#editApplicationModal').modal('show');
+  }
+  }

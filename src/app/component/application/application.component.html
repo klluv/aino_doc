@@ -2,7 +2,7 @@
 <div class="card">
   <div class="card-header">
     <h3 class="mb-4">Daftar Application</h3>
-    <button class="btn btn-primary mb-3" (click)="addApplication()"><i class="bi bi-plus-lg"></i> Tambah Application</button>
+    <button class="btn btn-primary mb-3" (click)="addApplicationModal()"><i class="bi bi-plus-lg"></i> Tambah Application</button>
   </div>
   <div class="card-body">
     <table class="table">
@@ -19,10 +19,80 @@
           <td>{{ itemApp.application_title }}</td>
           <td>{{ itemApp.application_description }}</td>
           <td>
-            <button class="btn btn- btn-sm" ><i class="bi bi-pen"></i></button>
+            <button class="btn btn-warning btn-sm" (click)="openEditModal(itemApp.application_uuid)"><i class="bi bi-pen"></i></button>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+  <div class="modal fade" id="addApplicationModal" tabindex="-1" aria-labelledby="addApplicationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addApplicationModalLabel">Add Application</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #applicationForm="ngForm">
+            <div class="mb-3">
+              <label class="col-sm-3 col-form-label">Application Code</label>
+              <div class="col-sm-9">
+                <!-- Bind the input field to the component property -->
+                <input type="text" class="form-control" placeholder="Enter Application Code" [(ngModel)]="application_code" name="application_code" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="col-sm-3 col-form-label">Application Title</label>
+              <div class="col-sm-9">
+                <!-- Bind the input field to the component property -->
+                <input type="text" class="form-control" placeholder="Enter Application Title" [(ngModel)]="application_title" name="application_title" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="col-sm-3 col-form-label">Application Description</label>
+              <div class="col-sm-9">
+                <!-- Bind the input field to the component property -->
+                <input type="text" class="form-control" placeholder="Enter Application Description" [(ngModel)]="application_description" name="application_description" required>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="addApplication()" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="modal fade" id="editApplicationModal" tabindex="-1" aria-labelledby="editApplicationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editApplicationModalLabel">Edit Application</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="col-sm-3 col-form-label">Application Code</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" placeholder="Enter Application Code">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="col-sm-3 col-form-label">Application Title</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" placeholder="Enter Application Title">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
   </div>
 </div>
