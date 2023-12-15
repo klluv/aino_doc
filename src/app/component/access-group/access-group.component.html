@@ -9,12 +9,14 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th scope="col">Kode</th>
             <th scope="col">Nama</th>
             <th scope="col">Actions</th>  
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let itemRole of dataListRole">
+            <td>{{ itemRole.role_code }}</td>
             <td>{{ itemRole.role_title }}</td>
             <td>
               <button class="btn btn-warning btn-sm" ><i class="bi bi-pen"></i></button>
@@ -25,9 +27,6 @@
     </div>
   </div>
 </div>
-
-<!-- ... Existing code ... -->
-
 
 <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

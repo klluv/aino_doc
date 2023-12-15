@@ -12,14 +12,6 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/main/component/add-data',
-    title: 'Add Data',
-    icon: 'bi bi-plus-circle',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
     path: '/main/component/user-control',
     title: 'User Control',
     icon: 'bi bi-person',
@@ -28,33 +20,17 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/main/component/list-all-role',
-    title: 'List All Role',
-    icon: 'bi bi-list',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/main/component/list-all-division',
-    title: 'List All Division',
-    icon: 'bi bi-list',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/main/component/list-all-app',
-    title: 'List All Application',
-    icon: 'bi bi-list',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
     path: '/main/component/application',
-    title: 'Application',
+    title: 'Aplikasi',
     icon: 'bi bi-file-earmark',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/main/component/division',
+    title: 'Divisi',
+    icon: 'bi bi-person-rolodex',
     class: '',
     extralink: false,
     submenu: []
@@ -143,6 +119,38 @@ export const ROUTES: RouteInfo[] = [
     path: '/main/about',
     title: 'About',
     icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/main/component/list-all-role',
+    title: 'List All Role',
+    icon: 'bi bi-list',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/main/component/list-all-division',
+    title: 'List All Division',
+    icon: 'bi bi-list',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/main/component/list-all-app',
+    title: 'List All Application',
+    icon: 'bi bi-list',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/main/component/add-data',
+    title: 'Add Data',
+    icon: 'bi bi-plus-circle',
     class: '',
     extralink: false,
     submenu: []

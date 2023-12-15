@@ -16,6 +16,8 @@ import { AddDataComponent } from './add-data/add-data.component';
 import { UserComponent } from './user/user.component';
 import { AccessGroupComponent } from './access-group/access-group.component';
 import { ApplicationComponent } from './application/application.component';
+import { DivisionComponent } from './division/division.component';
+
 
 
 export const ComponentsRoutes: Routes = [
@@ -85,6 +87,10 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'application',
 				component: ApplicationComponent
+			},
+			{
+				path: 'division',
+				component: DivisionComponent
 			}
 		]
 	}

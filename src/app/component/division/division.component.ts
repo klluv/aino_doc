@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
 
 declare var $: any;
 
-interface Application {
-  application_uuid: string;
-  application_order: number;
-  application_code: string;
-  application_title: string;
-  application_description: string;
+interface Division {
+  division_uuid: string;
+  division_order: number;
+  division_code: string;
+  division_title: string;
   created_by: string;
   created_at: string;
   updated_by: string;
@@ -22,31 +19,27 @@ interface Application {
 }
 
 @Component({
-  selector: 'app-application',
-  templateUrl: './application.component.html',
-  styleUrls: ['./application.component.scss']
+  selector: 'app-division',
+  templateUrl: './division.component.html',
+  styleUrls: ['./division.component.scss']
 })
-export class ApplicationComponent {
+export class DivisionComponent implements OnInit{
 
-  application_code: string = '';
-  application_title: string = '';
-  application_description: string = '';
-  
-  constructor(private router: Router, private cookieService: CookieService) {}
+  division_code: string = '';
+  division_title: string = '';
 
-  dataListApplication: Application[] = [];
+  constructor(private cookieService: CookieService) {}
 
-  
+  dataListDivision: Division[] = [];
 
   ngOnInit(): void {
-    this.fetchDataApplication()
+    this.fetchDataDivision();
   }
 
-  fetchDataApplication(): void {
-    axios.get('http://localhost:8080/application/all')
+  fetchDataDivision(): void {
+    axios.get('http://localhost:8080/division/all')
     .then((response) => {
-      this.dataListApplication = response.data;
-      console.log(response.data);
+      this.dataListDivision = response.data;
     })
     .catch((error) => {
       if(error.response.status === 500) {
@@ -54,17 +47,16 @@ export class ApplicationComponent {
       }
     })
   }
-  
 
-  addApplicationModal() {
-    $('#addApplicationModal').modal('show');
+  addDivisionModal() {
+    $('#addDivisionModal').modal('show');
   }
 
-  addApplication() {
+  addDivision() {
     const token = this.cookieService.get('userToken');
 
-    axios.post(`http://localhost:8080/superadmin/application/add`,
-    { application_code: this.application_code, application_title: this.application_title, application_description: this.application_description }, 
+    axios.post(`http://localhost:8080/superadmin/division/add`,
+    { division_code: this.division_code, division_title: this.division_title }, 
     {
       headers: {
         Authorization: `Bearer ${token}`
@@ -106,12 +98,4 @@ export class ApplicationComponent {
       }
     });
   }
-  openEditModal(application_uuid: string): void {
-    $('#editApplicationModal').modal('show');
-
-  }
-
-  openModal() {
-    $('#editApplicationModal').modal('show');
-  }
-  }
+}

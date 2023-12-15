@@ -22,6 +22,7 @@ import { EditRoleComponent } from './list-all-role/edit-role/edit-role.component
 import { UserComponent } from './user/user.component';
 import { AccessGroupComponent } from './access-group/access-group.component';
 import { ApplicationComponent } from './application/application.component';
+import { DivisionComponent } from './division/division.component';
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import { ApplicationComponent } from './application/application.component';
        UserComponent,
        AccessGroupComponent,
        ApplicationComponent,
+       DivisionComponent,
   ],
 })
 export class ComponentsModule { }

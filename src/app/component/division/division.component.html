@@ -1,0 +1,65 @@
+<h1>Divisi</h1>
+<div class="card">
+  <div class="card-header">
+    <h3 class="mb-4">Daftar Divisi</h3>
+    <button class="btn btn-primary mb-3" (click)="addDivisionModal()"><i class="bi bi-plus-lg"></i> Tambah
+      Divisi</button>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Kode Divisi</th>
+            <th scope="col">Nama Divisi</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let itemDiv of dataListDivision">
+            <td>{{ itemDiv.division_code }}</td>
+            <td>{{ itemDiv.division_title }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm"><i
+                  class="bi bi-pen"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addDivisionModal" tabindex="-1" aria-labelledby="addDivisionModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addDivisionModalLabel">Tambah Divisi</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #divisionForm="ngForm">
+          <div class="mb-3">
+            <label class="col-sm-3 col-form-label">Kode Divisi</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Masukkan kode divisi"
+                [(ngModel)]="division_code" name="division_code" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="col-sm-3 col-form-label">Nama Divisi</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Masukkan nama divisi"
+                [(ngModel)]="division_title" name="division_title" required>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="addDivision()" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
