@@ -2,23 +2,60 @@
 <div class="card">
   <div class="card-header">
     <h3 class="mb-4">Daftar Grup Akses</h3>
-    <button class="btn btn-primary mb-3" (click)="addRole()"><i class="bi bi-plus-lg"></i> Add Grup Akses</button>
+    <button class="btn btn-primary mb-3" (click)="addRoleModal()"><i class="bi bi-plus-lg"></i> Add Grup Akses</button>
   </div>
   <div class="card-body">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Nama</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let itemRole of dataListRole">
-          <td>{{ itemRole.role_title }}</td>
-          <td>
-            <button class="btn btn- btn-sm" ><i class="bi bi-pen"></i></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nama</th>
+            <th scope="col">Actions</th>  
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let itemRole of dataListRole">
+            <td>{{ itemRole.role_title }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm" ><i class="bi bi-pen"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ... Existing code ... -->
+
+
+<div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addRoleModalLabel">Add Role</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #roleForm="ngForm">
+          <div class="mb-3">
+            <label class="col-sm-3 col-form-label">Role Code</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Enter Role Code" [(ngModel)]="role_code" name="role_code" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="col-sm-3 col-form-label">Role Title</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Enter Role Title" [(ngModel)]="role_title" name="role_title" required>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="addApplication()" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>
