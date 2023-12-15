@@ -17,6 +17,11 @@ import { ListAllDivisionComponent } from './list-all-division/list-all-division.
 import { ListAllApplicationComponent } from './list-all-app/list-all-app.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AddDataComponent } from './add-data/add-data.component';
+import { EditDivisionComponent } from './list-all-division/edit-division/edit-division.component';
+import { EditRoleComponent } from './list-all-role/edit-role/edit-role.component';
+import { UserComponent } from './user/user.component';
+import { AccessGroupComponent } from './access-group/access-group.component';
+import { ApplicationComponent } from './application/application.component';
 
 @NgModule({
   imports: [
@@ -39,6 +44,11 @@ import { AddDataComponent } from './add-data/add-data.component';
        ListAllApplicationComponent,
        AddUserComponent,
        AddDataComponent,
+       EditDivisionComponent,
+       EditRoleComponent,
+       UserComponent,
+       AccessGroupComponent,
+       ApplicationComponent,
   ],
 })
 export class ComponentsModule { }

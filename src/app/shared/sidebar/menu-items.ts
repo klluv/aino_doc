@@ -20,6 +20,14 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
+    path: '/main/component/user-control',
+    title: 'User Control',
+    icon: 'bi bi-person',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     path: '/main/component/list-all-role',
     title: 'List All Role',
     icon: 'bi bi-list',
@@ -39,6 +47,22 @@ export const ROUTES: RouteInfo[] = [
     path: '/main/component/list-all-app',
     title: 'List All Application',
     icon: 'bi bi-list',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/main/component/application',
+    title: 'Application',
+    icon: 'bi bi-file-earmark',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/main/component/grup-akses',
+    title: 'Grup Akses',
+    icon: 'bi bi-universal-access-circle',
     class: '',
     extralink: false,
     submenu: []

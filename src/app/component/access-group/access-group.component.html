@@ -1,0 +1,24 @@
+<h1>Grup Akses</h1>
+<div class="card">
+  <div class="card-header">
+    <h3 class="mb-4">Daftar Grup Akses</h3>
+    <button class="btn btn-primary mb-3" (click)="addRole()"><i class="bi bi-plus-lg"></i> Add Grup Akses</button>
+  </div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nama</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let itemRole of dataListRole">
+          <td>{{ itemRole.role_title }}</td>
+          <td>
+            <button class="btn btn- btn-sm" ><i class="bi bi-pen"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

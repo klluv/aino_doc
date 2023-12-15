@@ -71,14 +71,9 @@ export class ChangePasswordComponent {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
-
-    const passwordInputs = document.querySelectorAll('input[type="password"]');
-    passwordInputs.forEach((input: Element) => {
-      if (input instanceof HTMLInputElement) {
-        input.type = this.showPassword ? 'text' : 'password';
-      }
-    });    
+   
   }
+  
 
   onCancel() {
     this.router.navigateByUrl('/main/dashboard');

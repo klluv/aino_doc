@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
-import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import Swal from 'sweetalert2';
 
 interface Role {
   role_uuid: string;
@@ -16,21 +17,21 @@ interface Role {
 }
 
 @Component({
-  selector: 'app-list-all-role',
-  templateUrl: './list-all-role.component.html',
-  styleUrls: ['./list-all-role.component.scss']
+  selector: 'app-access-group',
+  templateUrl: './access-group.component.html',
+  styleUrls: ['./access-group.component.scss']
 })
-export class ListAllRoleComponent implements OnInit{
+export class AccessGroupComponent implements OnInit {
 
-  constructor(private router: Router){}
+  constructor(private cookieService: CookieService) {}
 
   dataListRole: Role[] = [];
 
   ngOnInit(): void {
-    this.fetchDataRole()
+    this.fetchDataRoleGroup();
   }
 
-  fetchDataRole(): void {
+  fetchDataRoleGroup(): void {
     axios.get('http://localhost:8080/role/all')
     .then((response) => {
       this.dataListRole = response.data;
@@ -43,4 +44,7 @@ export class ListAllRoleComponent implements OnInit{
     })
   }
 
+  addRole() {
+    
+  }
 }

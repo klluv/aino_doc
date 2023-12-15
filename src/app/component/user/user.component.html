@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <h1 class="display-4">User Control</h1>
+  <div class="card">
+    <div class="card-header">
+      <h3 class="mb-4">Daftar User</h3>
+      <button class="btn btn-primary mb-3" (click)="addUser()">Add User</button>
+    </div>
+    <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nama</th>
+          <th scope="col">Email</th>
+          <th scope="col">Divisi</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userList">
+          <td>{{ user.user_name }}</td>
+          <td>{{ user.user_email }}</td>
+          <td>{{ user.division_title }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" (click)="editUser(user)"><i class="bi bi-pen"></i></button>
+            <button class="btn btn-danger btn-sm ms-2" (click)="onDeleteUser(user.user_application_role_uuid)"><i class="bi bi-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

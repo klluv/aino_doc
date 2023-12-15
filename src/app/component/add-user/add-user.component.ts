@@ -57,11 +57,11 @@ export class AddUserComponent implements OnInit{
     this.divisionData();
   }
 
-  onAddUser() {
+  onAddUser(): void {
     const token = this.cookieService.get('userToken');
 
     axios.post(`http://localhost:8080/superadmin/user/add`,
-    { user_name: this.user_name, user_email: this.user_email, user_password: this.user_password }, 
+    { user_name: this.user_name, user_email: this.user_email, user_password: this.user_password, application_uuid: this.application_uuid, role_uuid: this.role_uuid, division_uuid: this.division_uuid }, 
     {
       headers: {
         Authorization: `Bearer ${token}`

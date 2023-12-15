@@ -1,0 +1,28 @@
+<h1>Application</h1>
+<div class="card">
+  <div class="card-header">
+    <h3 class="mb-4">Daftar Application</h3>
+    <button class="btn btn-primary mb-3" (click)="addApplication()"><i class="bi bi-plus-lg"></i> Tambah Application</button>
+  </div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">App. Code</th>
+          <th scope="col">App. Title</th>
+          <th scope="col">App. Desc</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let itemApp of dataListApplication">
+          <td>{{ itemApp.application_code }}</td>
+          <td>{{ itemApp.application_title }}</td>
+          <td>{{ itemApp.application_description }}</td>
+          <td>
+            <button class="btn btn- btn-sm" ><i class="bi bi-pen"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

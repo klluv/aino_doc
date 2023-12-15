@@ -13,6 +13,10 @@ import { ListAllApplicationComponent } from './list-all-app/list-all-app.compone
 import { ListAllDivisionComponent } from './list-all-division/list-all-division.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AddDataComponent } from './add-data/add-data.component';
+import { UserComponent } from './user/user.component';
+import { AccessGroupComponent } from './access-group/access-group.component';
+import { ApplicationComponent } from './application/application.component';
+
 
 export const ComponentsRoutes: Routes = [
 	{
@@ -69,6 +73,18 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'add-data',
 				component: AddDataComponent,
+			},
+			{
+				path: 'user-control',
+				component: UserComponent
+			},
+			{
+				path: 'grup-akses',
+				component: AccessGroupComponent
+			},
+			{
+				path: 'application',
+				component: ApplicationComponent
 			}
 		]
 	}
