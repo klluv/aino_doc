@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
+import { DivisionService } from '../component-service/division.service';
+
+
 
 declare var $: any;
 
@@ -23,12 +26,18 @@ interface Division {
   templateUrl: './division.component.html',
   styleUrls: ['./division.component.scss']
 })
-export class DivisionComponent implements OnInit{
+export class DivisionComponent implements OnInit {
 
+  division_uuid: string = '';
   division_code: string = '';
   division_title: string = '';
 
-  constructor(private cookieService: CookieService) {}
+
+  constructor(
+    private cookieService: CookieService,
+    public divisionService: DivisionService
+  ) { }
+
 
   dataListDivision: Division[] = [];
 
@@ -38,64 +47,122 @@ export class DivisionComponent implements OnInit{
 
   fetchDataDivision(): void {
     axios.get('http://localhost:8080/division/all')
-    .then((response) => {
-      this.dataListDivision = response.data;
-    })
-    .catch((error) => {
-      if(error.response.status === 500) {
-        console.log(error.response.data.message)
-      }
-    })
+      .then((response) => {
+        this.dataListDivision = response.data;
+        this.divisionService.updateDataListDivision(this.dataListDivision);
+      })
+      .catch((error) => {
+        if (error.response.status === 500) {
+          console.log(error.response.data.message)
+        }
+      })
   }
 
   addDivisionModal() {
     $('#addDivisionModal').modal('show');
+    this.division_code = '';
+    this.division_title = '';
   }
 
   addDivision() {
     const token = this.cookieService.get('userToken');
 
     axios.post(`http://localhost:8080/superadmin/division/add`,
-    { division_code: this.division_code, division_title: this.division_title }, 
-    {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then((response) => {
-      console.log(response.data.message);
-      Swal.fire({
-        title: 'Success',
-        text: response.data.message,
-        icon: 'success'
+      { division_code: this.division_code, division_title: this.division_title },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        console.log(response.data.message);
+        this.fetchDataDivision();
+        Swal.fire({
+          title: 'Success',
+          text: response.data.message,
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        $('#addDivisionModal').modal('hide');
+        this.division_code = '';
+        this.division_title = '';
+      })
+      .catch((error) => {
+        if (error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error'
+          });
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Terjadi kesalahan',
+            icon: 'error'
+          });
+        }
       });
+  }
+  
+
+  getSpecDiv(divisionUuid: string): void {
+    axios.get('http://localhost:8080/division/' + divisionUuid)
+    .then((response) => {
+      const divisionData = response.data;
+      console.log(divisionData);
+      this.division_uuid = divisionData.division_uuid;
+      this.division_code = divisionData.division_code;
+      this.division_title = divisionData.division_title;
+
+      $('#editDivisionModal').modal('show');
     })
     .catch((error) => {
-      if(error.response.status === 400) {
+      if (error.response.status === 500 || error.response.status === 404) {
+        console.log(error.response.data.message)
+      }
+    })
+  }
+
+  updateDivision(): void {
+    const token = this.cookieService.get('userToken');
+    const divisionUuid = this.division_uuid;
+  
+    axios.put(`http://localhost:8080/superadmin/division/update/${divisionUuid}`,
+      { division_code: this.division_code, division_title: this.division_title },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        console.log(response.data.message);
+        this.fetchDataDivision();
         Swal.fire({
-          title: 'Error',
-          text: error.response.data.message,
-          icon: 'error'
+          title: 'Success',
+          text: response.data.message,
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
         });
-      } else if(error.response.status === 422) {
-        Swal.fire({
-          title: 'Error',
-          text: error.response.data.message,
-          icon: 'error'
-        });
-      } else if (error.response.status === 500) {
-        Swal.fire({
-          title: 'Error',
-          text: error.response.data.message,
-          icon: 'error'
-        });
-      } else {
+  
+        // Menyembunyikan modal edit
+        $('#editDivisionModal').modal('hide');
+      })
+      .catch((error) => {
+        console.error('Error updating division:', error);
+  
         Swal.fire({
           title: 'Error',
           text: 'Terjadi kesalahan',
-          icon: 'error'
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1500,
         });
-      }
-    });
+      });
   }
+  
+  
 }
+
+export { Division };
