@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
+import { ApplicationService } from '../component-service/application-service/application.service';
+
 
 declare var $: any;
 
@@ -26,13 +28,18 @@ interface Application {
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.scss']
 })
-export class ApplicationComponent {
+export class ApplicationComponent implements OnInit {
 
+  application_uuid: string = '';
   application_code: string = '';
   application_title: string = '';
   application_description: string = '';
   
-  constructor(private router: Router, private cookieService: CookieService) {}
+  constructor(
+    private router: Router,
+    private cookieService: CookieService,
+    public applicationService: ApplicationService
+    ) {}  
 
   dataListApplication: Application[] = [];
 
@@ -46,7 +53,7 @@ export class ApplicationComponent {
     axios.get('http://localhost:8080/application/all')
     .then((response) => {
       this.dataListApplication = response.data;
-      console.log(response.data);
+      this.applicationService.updateDataListApplication(this.dataListApplication);
     })
     .catch((error) => {
       if(error.response.status === 500) {
@@ -58,6 +65,9 @@ export class ApplicationComponent {
 
   addApplicationModal() {
     $('#addApplicationModal').modal('show');
+    this.application_code = '';
+    this.application_title = '';
+    this.application_description = '';
   }
 
   addApplication() {
@@ -75,23 +85,17 @@ export class ApplicationComponent {
       Swal.fire({
         title: 'Success',
         text: response.data.message,
-        icon: 'success'
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500,
       });
+      $('#addApplicationModal').modal('hide');
+      this.application_code = '';
+      this.application_title = '';
+      this.application_description = '';
     })
     .catch((error) => {
-      if(error.response.status === 400) {
-        Swal.fire({
-          title: 'Error',
-          text: error.response.data.message,
-          icon: 'error'
-        });
-      } else if(error.response.status === 422) {
-        Swal.fire({
-          title: 'Error',
-          text: error.response.data.message,
-          icon: 'error'
-        });
-      } else if (error.response.status === 500) {
+      if(error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
         Swal.fire({
           title: 'Error',
           text: error.response.data.message,
@@ -106,12 +110,64 @@ export class ApplicationComponent {
       }
     });
   }
-  openEditModal(application_uuid: string): void {
-    $('#editApplicationModal').modal('show');
+  getSpecApp(applicationUuid: string): void {
+    axios.get(`http://localhost:8080/application/${applicationUuid}`)
+    .then((response) => {
+      const applicationData = response.data;
+      console.log(applicationData);
+      this.application_uuid = applicationData.application_uuid;
+      this.application_code = applicationData.application_code;
+      this.application_title = applicationData.application_title;
+      this.application_description = applicationData.application_description;
 
+      $('#editApplicationModal').modal('show');
+    })
+    .catch((error) => {
+      if (error.response.status === 500 || error.response.status === 404) {
+        console.log(error.response.data.message)
+      }
+    })
   }
 
-  openModal() {
-    $('#editApplicationModal').modal('show');
+  updateApplication(): void {
+    const token = this.cookieService.get('userToken');
+    const applicationUuid = this.application_uuid;
+
+    axios.put(`http://localhost:8080/superadmin/application/update/${applicationUuid}`,
+    { application_code: this.application_code, application_title: this.application_title, application_description: this.application_description },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then((response) => {
+      console.log(response.data.message);
+      this.fetchDataApplication();
+      Swal.fire({
+        title: 'Success',
+        text: response.data.message,
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+      $('#editApplicationModal').modal('hide');
+    })
+      .catch((error) => {
+        if(error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error'
+          });
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Terjadi kesalahan',
+            icon: 'error'
+          });
+        }
+      })
+    }
   }
-  }
+
+export { Application };

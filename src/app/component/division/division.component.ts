@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
-import { DivisionService } from '../component-service/division.service';
+import { DivisionService } from '../component-service/division-service/division.service';
 
 
 

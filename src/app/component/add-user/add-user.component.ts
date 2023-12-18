@@ -33,9 +33,15 @@ export class AddUserComponent implements OnInit {
   user_name: string = '';
   user_email: string = '';
   user_password: string = '';
-  division_uuid: string = '';
-  role_uuid: string = '';
-  application_uuid: string = '';
+  applicationRole: {
+    division_uuid: string;
+    role_uuid: string;
+    application_uuid: string;
+  } = {
+    division_uuid: '',
+    role_uuid: '',
+    application_uuid: ''
+  };
   showPassword: boolean = false;
 
   togglePasswordVisibility() {
@@ -62,12 +68,16 @@ export class AddUserComponent implements OnInit {
 
   onAddUser() {
     const token = this.cookieService.get('userToken');
+    const user = {
+      user_name: this.user_name,
+      user_email: this.user_email,
+      user_password: this.user_password,
+      selectedDivision: this.applicationRole.division_uuid,
+      selectedRole: this.applicationRole.role_uuid,
+      selectedApplication: this.applicationRole.application_uuid
+    };
 
-    axios.post('http://localhost:8080/superadmin/user/add',
-      { user_name: this.user_name, 
-        user_email: this.user_email, 
-        user_password: this.user_password, 
-        },
+    axios.post('http://localhost:8080/superadmin/user/add', user,
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -82,19 +92,7 @@ export class AddUserComponent implements OnInit {
         });
       })
       .catch((error) => {
-        if (error.response.status === 400) {
-          Swal.fire({
-            title: 'Error',
-            text: error.response.data.message,
-            icon: 'error'
-          });
-        } else if (error.response.status === 422) {
-          Swal.fire({
-            title: 'Error',
-            text: error.response.data.message,
-            icon: 'error'
-          });
-        } else if (error.response.status === 500) {
+        if (error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
           Swal.fire({
             title: 'Error',
             text: error.response.data.message,

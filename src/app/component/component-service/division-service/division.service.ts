@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Division } from '../division/division.component';
+import { Division } from '../../division/division.component';
 
 @Injectable({
   providedIn: 'root'

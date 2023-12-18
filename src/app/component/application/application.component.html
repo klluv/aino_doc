@@ -1,8 +1,8 @@
 <h1>Application</h1>
 <div class="card">
-  <div class="card-header">
+  <div class="card-header d-flex justify-content-between align-items-center">
     <h3 class="mb-4">Daftar Application</h3>
-    <button class="btn btn-primary mb-3" (click)="addApplicationModal()"><i class="bi bi-plus-lg"></i> Tambah
+    <button class="btn btn-outline-primary mb-3 btn-sm" (click)="addApplicationModal()"><i class="bi bi-plus-lg"></i> Tambah
       Application</button>
   </div>
   <div class="card-body">
@@ -17,12 +17,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let itemApp of dataListApplication">
+          <tr *ngFor="let itemApp of (applicationService.dataListApplication$ | async)">
             <td>{{ itemApp.application_code }}</td>
             <td>{{ itemApp.application_title }}</td>
             <td>{{ itemApp.application_description }}</td>
             <td>
-              <button class="btn btn-warning btn-sm" (click)="openEditModal(itemApp.application_uuid)"><i
+              <button class="btn btn-warning btn-sm" (click)="getSpecApp(itemApp.application_uuid)"><i
                   class="bi bi-pen"></i></button>
             </td>
           </tr>
@@ -86,19 +86,25 @@
         <div class="mb-3">
           <label class="col-sm-3 col-form-label">Application Code</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" placeholder="Enter Application Code">
+            <input type="text" class="form-control" placeholder="Enter Application Code" [(ngModel)]="application_code" name="application_code" required>
           </div>
         </div>
         <div class="mb-3">
           <label class="col-sm-3 col-form-label">Application Title</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" placeholder="Enter Application Title">
+            <input type="text" class="form-control" placeholder="Enter Application Title" [(ngModel)]="application_title" name="application_title" required>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="col-sm-3 col-form-label">Application Description</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" placeholder="Enter Application Description" [(ngModel)]="application_description" name="application_description" required>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save Changes</button>
+        <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateApplication()">Save Changes</button>
       </div>
     </div>
   </div>
