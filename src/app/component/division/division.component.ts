@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
@@ -32,11 +32,14 @@ export class DivisionComponent implements OnInit {
   division_code: string = '';
   division_title: string = '';
 
-
   constructor(
     private cookieService: CookieService,
-    public divisionService: DivisionService
-  ) { }
+    public divisionService: DivisionService,
+    @Inject('apiUrl') private apiUrl: string
+  ) { 
+
+    this.apiUrl = apiUrl;
+  }
 
 
   dataListDivision: Division[] = [];
@@ -46,7 +49,7 @@ export class DivisionComponent implements OnInit {
   }
 
   fetchDataDivision(): void {
-    axios.get('http://localhost:8080/division/all')
+    axios.get(`${this.apiUrl}/division/all`)
       .then((response) => {
         this.dataListDivision = response.data;
         this.divisionService.updateDataListDivision(this.dataListDivision);
@@ -67,7 +70,7 @@ export class DivisionComponent implements OnInit {
   addDivision() {
     const token = this.cookieService.get('userToken');
 
-    axios.post(`http://localhost:8080/superadmin/division/add`,
+    axios.post(`${this.apiUrl}/superadmin/division/add`,
       { division_code: this.division_code, division_title: this.division_title },
       {
         headers: {
@@ -107,7 +110,7 @@ export class DivisionComponent implements OnInit {
   
 
   getSpecDiv(divisionUuid: string): void {
-    axios.get('http://localhost:8080/division/' + divisionUuid)
+    axios.get(`${this.apiUrl}/division/` + divisionUuid)
     .then((response) => {
       const divisionData = response.data;
       console.log(divisionData);
@@ -128,7 +131,7 @@ export class DivisionComponent implements OnInit {
     const token = this.cookieService.get('userToken');
     const divisionUuid = this.division_uuid;
   
-    axios.put(`http://localhost:8080/superadmin/division/update/${divisionUuid}`,
+    axios.put(`${this.apiUrl}/superadmin/division/update/${divisionUuid}`,
       { division_code: this.division_code, division_title: this.division_title },
       {
         headers: {

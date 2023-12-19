@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import axios from 'axios';
@@ -23,7 +23,10 @@ export class AddDataComponent implements OnInit{
   application_title: string = '';
   application_description: string = '';
 
-  constructor(private cookieService: CookieService, private fb: FormBuilder) {}
+  constructor(private cookieService: CookieService, private fb: FormBuilder, @Inject('apiUrl') private apiUrl: string) {
+
+    this.apiUrl = apiUrl;
+  }
 
 
   ngOnInit(): void {
@@ -36,7 +39,7 @@ export class AddDataComponent implements OnInit{
   onAddRole() {
     const token = this.cookieService.get('userToken');
 
-    axios.post(`http://localhost:8080/superadmin/role/add`,
+    axios.post(`${this.apiUrl}/superadmin/role/add`,
     { role_code: this.role_code, role_title: this.role_title }, 
     {
       headers: {
@@ -83,7 +86,7 @@ export class AddDataComponent implements OnInit{
   onAddDivision() {
     const token = this.cookieService.get('userToken');
 
-    axios.post(`http://localhost:8080/superadmin/division/add`,
+    axios.post(`${this.apiUrl}/superadmin/division/add`,
     { division_code: this.division_code, division_title: this.division_title }, 
     {
       headers: {
@@ -130,7 +133,7 @@ export class AddDataComponent implements OnInit{
   onAddApp() {
     const token = this.cookieService.get('userToken');
 
-    axios.post(`http://localhost:8080/superadmin/application/add`,
+    axios.post(`${this.apiUrl}/superadmin/application/add`,
     { application_code: this.application_code, application_title: this.application_title, application_description: this.application_description }, 
     {
       headers: {
@@ -182,7 +185,7 @@ export class AddDataComponent implements OnInit{
       role_uuid: this.form.value.role_uuid
     };
     
-    axios.post(`http://localhost:8080/superadmin/application/role/add`, dataToSend,
+    axios.post(`${this.apiUrl}/superadmin/application/role/add`, dataToSend,
     {
       headers: {
         Authorization: `Bearer ${token}`

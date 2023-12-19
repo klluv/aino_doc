@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import axios from 'axios';
 import { Router } from '@angular/router';
 
@@ -22,7 +22,12 @@ interface Division {
 })
 export class ListAllDivisionComponent implements OnInit{
 
-  constructor(private router: Router){}
+  private apiUrl: string;
+
+  constructor(private router: Router, @Inject('apiUrl') apiUrl: string) {
+
+    this.apiUrl = apiUrl;
+  }
 
   dataListDivision: Division[] = [];
 
@@ -31,7 +36,7 @@ export class ListAllDivisionComponent implements OnInit{
   }
 
   fetchDataDivision(): void {
-    axios.get('http://localhost:8080/division/all')
+    axios.get(`${this.apiUrl}/division/all`)
     .then((response) => {
       this.dataListDivision = response.data;
       console.log(response.data);

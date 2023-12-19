@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
@@ -33,8 +33,12 @@ export class AccessGroupComponent implements OnInit {
 
   constructor(
     private cookieService: CookieService,
-    public roleService: RoleService
-    ) {}
+    public roleService: RoleService,
+    @Inject('apiUrl') private apiUrl: string
+    ) {
+
+      this.apiUrl = apiUrl;
+    }
 
   dataListRole: Role[] = [];
 
@@ -43,7 +47,7 @@ export class AccessGroupComponent implements OnInit {
   }
 
   fetchDataRoleGroup(): void {
-    axios.get('http://localhost:8080/role/all')
+    axios.get(`${this.apiUrl}/role/all`)
     .then((response) => {
       this.dataListRole = response.data;
       this.roleService.updateDataListRole(this.dataListRole);
@@ -64,7 +68,7 @@ export class AccessGroupComponent implements OnInit {
   addRole() {
     const token = this.cookieService.get('userToken');
 
-    axios.post(`http://localhost:8080/superadmin/role/add`,
+    axios.post(`${this.apiUrl}/superadmin/role/add`,
     { role_code: this.role_code, role_title: this.role_title }, 
     {
       headers: {
@@ -100,7 +104,7 @@ export class AccessGroupComponent implements OnInit {
   }
 
   getSpecRole(roleUuid: string): void {
-    axios.get(`http://localhost:8080/role/${roleUuid}`)
+    axios.get(`${this.apiUrl}/role/${roleUuid}`)
     .then((response) => {
       const roleData = response.data;
       this.role_uuid = roleData.role_uuid;
@@ -120,7 +124,7 @@ export class AccessGroupComponent implements OnInit {
     const token = this.cookieService.get('userToken');
     const roleUuid = this.role_uuid;
 
-    axios.put(`http://localhost:8080/superadmin/role/update/${roleUuid}`,
+    axios.put(`${this.apiUrl}/superadmin/role/update/${roleUuid}`,
     { role_code: this.role_code, role_title: this.role_title },
     {
       headers: {

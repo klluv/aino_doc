@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
@@ -23,7 +23,10 @@ interface Users {
 })
 export class UserComponent implements OnInit{
   
-  constructor(private cookieService: CookieService){}
+  constructor(private cookieService: CookieService, @Inject('apiUrl') private apiUrl: string){
+
+    this.apiUrl = apiUrl;
+  }
 
   userList: Users[] = [];
 
@@ -33,7 +36,7 @@ export class UserComponent implements OnInit{
 
   fetchDataUser(): void {
     const token = this.cookieService.get('userToken');
-    axios.get(`http://localhost:8080/superadmin/user/all`,  
+    axios.get(`${this.apiUrl}/superadmin/user/all`,  
     {
       headers: {
         Authorization: `Bearer ${token}`
@@ -71,7 +74,7 @@ export class UserComponent implements OnInit{
 
   performDeleteUser(user_application_role_uuid: string): void {
     const token = this.cookieService.get('userToken');
-    axios.put(`http://localhost:8080/superadmin/user/delete/${user_application_role_uuid}`,
+    axios.put(`${this.apiUrl}/superadmin/user/delete/${user_application_role_uuid}`,
     {},
     {
       headers: {

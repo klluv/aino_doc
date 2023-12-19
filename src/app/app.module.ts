@@ -15,6 +15,8 @@ import { FullComponent } from './layouts/full/full.component';
 
 import { AuthGuard } from './auth/auth.guard';
 
+import { environment } from 'src/environments/environment';
+
 import { NavigationComponent } from './shared/header/navigation.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
@@ -48,7 +50,11 @@ import { LoginComponent } from './login/login.component';
       provide: LocationStrategy,
       useClass: PathLocationStrategy
     },
-    AuthGuard
+    AuthGuard,
+    {
+      provide: 'apiUrl',
+      useValue: environment.apiUrl
+    }
   ],
   bootstrap: [AppComponent]
 })

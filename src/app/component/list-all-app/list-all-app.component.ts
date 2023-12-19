@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import axios from 'axios';
 import { Router } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
@@ -24,7 +24,10 @@ interface Application {
 })
 export class ListAllApplicationComponent {
   
- constructor(private router: Router) {}
+ constructor(private router: Router, @Inject('apiUrl') private apiUrl: string) {
+
+   this.apiUrl = apiUrl;
+ }
 
   dataListApplication: Application[] = [];
   
@@ -34,7 +37,7 @@ export class ListAllApplicationComponent {
   }
 
   fetchDataApplication(): void {
-    axios.get('http://localhost:8080/application/all')
+    axios.get(`${this.apiUrl}/application/all`)
     .then((response) => {
       this.dataListApplication = response.data;
       console.log(response.data);

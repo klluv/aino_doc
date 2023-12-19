@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'; 
+
 
 
 @Component({
@@ -17,14 +18,18 @@ export class LoginComponent {
   };
   showPassword: boolean = false;
 
+  private apiUrl: string;
+
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
-  constructor(private router: Router, private cookieService: CookieService) {}
+  constructor(private router: Router, private cookieService: CookieService, @Inject('apiUrl') apiUrl: string) {
+    this.apiUrl = apiUrl;
+  }
   
   onLogin() {
-    axios.post('http://localhost:8080/login', this.loginData)
+    axios.post(`${this.apiUrl}/login`, this.loginData)
     .then((response) => {
       console.log(response.data.message);
       Swal.fire({

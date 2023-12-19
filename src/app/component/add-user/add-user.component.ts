@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
@@ -48,7 +48,10 @@ export class AddUserComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  constructor(private cookieService: CookieService, private fb: FormBuilder) { }
+  constructor(private cookieService: CookieService, private fb: FormBuilder, @Inject('apiUrl') private apiUrl: string) {
+
+    this.apiUrl = apiUrl;
+   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -77,7 +80,7 @@ export class AddUserComponent implements OnInit {
       selectedApplication: this.applicationRole.application_uuid
     };
 
-    axios.post('http://localhost:8080/superadmin/user/add', user,
+    axios.post(`${this.apiUrl}/superadmin/user/add`, user,
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -109,7 +112,7 @@ export class AddUserComponent implements OnInit {
   }
 
   appData() {
-    axios.get('http://localhost:8080/application/all')
+    axios.get(`${this.apiUrl}/application/all`)
       .then((response) => {
         this.dataListApplication = response.data;
         console.log(response.data);
@@ -122,7 +125,7 @@ export class AddUserComponent implements OnInit {
   }
 
   roleData() {
-    axios.get('http://localhost:8080/role/all')
+    axios.get(`${this.apiUrl}/role/all`)
       .then((response) => {
         this.dataListRole = response.data;
         console.log(response.data);
@@ -135,7 +138,7 @@ export class AddUserComponent implements OnInit {
   }
 
   divisionData() {
-    axios.get('http://localhost:8080/division/all')
+    axios.get(`${this.apiUrl}/division/all`)
       .then((response) => {
         this.dataListDivision = response.data;
         console.log(response.data);

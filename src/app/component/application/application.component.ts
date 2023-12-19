@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import axios from 'axios';
@@ -38,8 +38,12 @@ export class ApplicationComponent implements OnInit {
   constructor(
     private router: Router,
     private cookieService: CookieService,
-    public applicationService: ApplicationService
-    ) {}  
+    public applicationService: ApplicationService,
+    @Inject('apiUrl') private apiUrl: string
+    ) {
+
+      this.apiUrl = apiUrl;
+    }  
 
   dataListApplication: Application[] = [];
 
@@ -50,7 +54,7 @@ export class ApplicationComponent implements OnInit {
   }
 
   fetchDataApplication(): void {
-    axios.get('http://localhost:8080/application/all')
+    axios.get(`${this.apiUrl}/application/all`)
     .then((response) => {
       this.dataListApplication = response.data;
       this.applicationService.updateDataListApplication(this.dataListApplication);
@@ -73,7 +77,7 @@ export class ApplicationComponent implements OnInit {
   addApplication() {
     const token = this.cookieService.get('userToken');
 
-    axios.post(`http://localhost:8080/superadmin/application/add`,
+    axios.post(`${this.apiUrl}/superadmin/application/add`,
     { application_code: this.application_code, application_title: this.application_title, application_description: this.application_description }, 
     {
       headers: {
@@ -111,7 +115,7 @@ export class ApplicationComponent implements OnInit {
     });
   }
   getSpecApp(applicationUuid: string): void {
-    axios.get(`http://localhost:8080/application/${applicationUuid}`)
+    axios.get(`${this.apiUrl}/application/${applicationUuid}`)
     .then((response) => {
       const applicationData = response.data;
       console.log(applicationData);
@@ -133,7 +137,7 @@ export class ApplicationComponent implements OnInit {
     const token = this.cookieService.get('userToken');
     const applicationUuid = this.application_uuid;
 
-    axios.put(`http://localhost:8080/superadmin/application/update/${applicationUuid}`,
+    axios.put(`${this.apiUrl}/superadmin/application/update/${applicationUuid}`,
     { application_code: this.application_code, application_title: this.application_title, application_description: this.application_description },
     {
       headers: {

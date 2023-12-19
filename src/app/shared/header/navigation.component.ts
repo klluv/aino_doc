@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
+import { Component, AfterViewInit, EventEmitter, Output, Inject } from '@angular/core';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
@@ -20,7 +20,11 @@ export class NavigationComponent implements AfterViewInit {
 
   public showSearch = false;
 
-  constructor(private modalService: NgbModal, private cookieService: CookieService, private router: Router ) {}
+  private apiUrl: string;
+
+  constructor(private modalService: NgbModal, private cookieService: CookieService, private router: Router, @Inject('apiUrl') apiUrl: string ) {
+    this.apiUrl = apiUrl;
+  }
 
   // This is for Notifications
   notifications: Object[] = [
@@ -140,7 +144,7 @@ export class NavigationComponent implements AfterViewInit {
   performLogout() {
     const token = this.cookieService.get('userToken');
     axios
-      .post('http://localhost:8080/logout',
+      .post(`${this.apiUrl}/logout`,
       {},
       {
         headers: {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
@@ -16,7 +16,11 @@ export class ChangePasswordComponent {
   confirm_password: string = '';
   showPassword: boolean = false;
 
-  constructor(private cookieService: CookieService, private router: Router) {}
+  private apiUrl: string;
+
+  constructor(private cookieService: CookieService, private router: Router, @Inject('apiUrl') apiUrl: string) {
+    this.apiUrl = apiUrl;
+  }
 
   onChangePassword() {
     if (this.new_password !== this.confirm_password) {
@@ -26,7 +30,7 @@ export class ChangePasswordComponent {
 
     const token = this.cookieService.get('userToken');
 
-    axios.put('http://localhost:8080/auth/change/password', {
+    axios.put(`${this.apiUrl}/auth/change/password`, {
       old_password: this.old_password,
       new_password: this.new_password
     }, {
@@ -46,6 +50,8 @@ export class ChangePasswordComponent {
       if(error.response.status === 400) {
         Swal.fire({
           title: 'Error',
+          text: error.response.data.message,
+          icon: 'error'
         })
       } else if(error.response.status === 401) {
         Swal.fire({

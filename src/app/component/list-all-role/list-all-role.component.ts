@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import axios from 'axios';
 import { Router } from '@angular/router';
 
@@ -22,7 +22,12 @@ interface Role {
 })
 export class ListAllRoleComponent implements OnInit{
 
-  constructor(private router: Router){}
+  private apiUrl: string;
+
+  constructor(private router: Router, @Inject('apiUrl') apiUrl: string) {
+
+    this.apiUrl = apiUrl;
+  }
 
   dataListRole: Role[] = [];
 
@@ -31,7 +36,7 @@ export class ListAllRoleComponent implements OnInit{
   }
 
   fetchDataRole(): void {
-    axios.get('http://localhost:8080/role/all')
+    axios.get(`${this.apiUrl}/role/all`)
     .then((response) => {
       this.dataListRole = response.data;
       console.log(response.data)
