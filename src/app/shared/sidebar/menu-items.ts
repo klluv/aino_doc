@@ -12,36 +12,45 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/main/component/user-control',
-    title: 'User Control',
-    icon: 'bi bi-person',
+    path: '/main/component',
+    title: 'Component',
+    icon: 'bi bi-gear',
     class: '',
     extralink: false,
-    submenu: []
-  },
-  {
-    path: '/main/component/application',
-    title: 'Aplikasi',
-    icon: 'bi bi-file-earmark',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/main/component/division',
-    title: 'Divisi',
-    icon: 'bi bi-person-rolodex',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/main/component/grup-akses',
-    title: 'Grup Akses',
-    icon: 'bi bi-universal-access-circle',
-    class: '',
-    extralink: false,
-    submenu: []
+    submenu: [
+      {
+        path: '/main/component/user-control',
+        title: 'User Control',
+        icon: 'bi bi-person',
+        class: '',
+        extralink: false,
+        submenu: []
+      },
+      {
+        path: '/main/component/application',
+        title: 'Aplikasi',
+        icon: 'bi bi-file-earmark',
+        class: '',
+        extralink: false,
+        submenu: []
+      },
+      {
+        path: '/main/component/division',
+        title: 'Divisi',
+        icon: 'bi bi-person-rolodex',
+        class: '',
+        extralink: false,
+        submenu: []
+      },
+      {
+        path: '/main/component/grup-akses',
+        title: 'Grup Akses',
+        icon: 'bi bi-universal-access-circle',
+        class: '',
+        extralink: false,
+        submenu: []
+      },
+    ]
   },
   {
     path: '/main/component/alert',

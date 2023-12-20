@@ -36,7 +36,6 @@ export class AccessGroupComponent implements OnInit {
     public roleService: RoleService,
     @Inject('apiUrl') private apiUrl: string
     ) {
-
       this.apiUrl = apiUrl;
     }
 

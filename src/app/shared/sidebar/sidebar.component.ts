@@ -14,16 +14,30 @@ import { CommonModule, NgIf } from '@angular/common';
 })
 export class SidebarComponent implements OnInit {
   showMenu = '';
-  showSubMenu = '';
-  public sidebarnavItems:RouteInfo[]=[];
+  activeSubMenu: RouteInfo | null = null;
+  public sidebarnavItems: RouteInfo[] = [];
   // this is for the open close
-  addExpandClass(element: string) {
+  addExpandClass(element: string): void {
     if (element === this.showMenu) {
-      this.showMenu = '0';
+      this.showMenu = '';
     } else {
       this.showMenu = element;
     }
   }
+
+  toggleSubMenu(sidebarnavItem: RouteInfo): void {
+    if (this.activeSubMenu === sidebarnavItem) {
+      this.activeSubMenu = null;
+    } else {
+      this.activeSubMenu = sidebarnavItem;
+    }
+  }
+
+  isSubMenuActive(sidebarnavItem: RouteInfo): boolean {
+    return this.activeSubMenu === sidebarnavItem;
+  }
+
+  
 
   constructor(
     private modalService: NgbModal,
@@ -32,7 +46,7 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   // End open close
-  ngOnInit() {
+  ngOnInit(): void {
     this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
   }
 }

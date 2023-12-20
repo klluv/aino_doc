@@ -23,6 +23,7 @@ import { UserComponent } from './user/user.component';
 import { AccessGroupComponent } from './access-group/access-group.component';
 import { ApplicationComponent } from './application/application.component';
 import { DivisionComponent } from './division/division.component';
+import { UserAddComponent } from './user/user-add/user-add.component';
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import { DivisionComponent } from './division/division.component';
        AccessGroupComponent,
        ApplicationComponent,
        DivisionComponent,
+       UserAddComponent,
   ],
 })
 export class ComponentsModule { }

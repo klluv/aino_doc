@@ -1,18 +1,26 @@
 <nav class="sidebar-nav">
     <ul id="sidebarnav" class="p-3">
-        <!-- First level menu -->
-        <li class="sidebar-item" [class.active]="showMenu === sidebarnavItem.title" *ngFor="let sidebarnavItem of sidebarnavItems"
-            [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
+        <li class="sidebar-item" [class.active]="isSubMenuActive(sidebarnavItem)" *ngFor="let sidebarnavItem of sidebarnavItems">
             <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true">{{sidebarnavItem.title}}</div>
-            <a class="sidebar-link waves-effect waves-dark" [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null"
-                [ngClass]="[sidebarnavItem.class]" *ngIf="!sidebarnavItem.extralink;" (click)="addExpandClass(sidebarnavItem.title)"
-                [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
+            <a class="sidebar-link waves-effect waves-dark" *ngIf="sidebarnavItem.submenu.length === 0"
+                [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null"
+                [ngClass]="[sidebarnavItem.class]" [routerLinkActive]="sidebarnavItem.submenu.length === 0 ? 'active' : ''">
                 <i [ngClass]="[sidebarnavItem.icon]"></i>
                 <span class="hide-menu">{{sidebarnavItem.title}}</span>
             </a>
-        </li>
-        <li class="text-center p-3 upgrade-btn">
-            <a href="https://www.wrappixel.com/templates/adminpro-angular-dashboard/" class="btn d-block w-100 btn-danger">Upgrade to Pro</a>
+            <a class="sidebar-link waves-effect waves-dark" *ngIf="sidebarnavItem.submenu.length > 0" (click)="toggleSubMenu(sidebarnavItem)">
+                <i [ngClass]="[sidebarnavItem.icon]"></i>
+                <span class="hide-menu">{{sidebarnavItem.title}}</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+            <ul *ngIf="sidebarnavItem.submenu.length > 0" [ngClass]="{'d-block': isSubMenuActive(sidebarnavItem), 'd-none': !isSubMenuActive(sidebarnavItem)}" class="sub-menu">
+                <li *ngFor="let submenuItem of sidebarnavItem.submenu">
+                    <a [routerLink]="submenuItem.path" [ngClass]="[submenuItem.class]" [routerLinkActive]="'active'">
+                        <i [ngClass]="[submenuItem.icon]"></i>
+                        <span>{{submenuItem.title}}</span>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </nav>
