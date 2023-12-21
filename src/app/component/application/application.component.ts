@@ -30,6 +30,8 @@ interface Application {
 })
 export class ApplicationComponent implements OnInit {
 
+  searchText: string = '';
+
   application_uuid: string = '';
   application_code: string = '';
   application_title: string = '';
@@ -51,6 +53,16 @@ export class ApplicationComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchDataApplication()
+  }
+
+  matchesSearch(item: Application): boolean {
+    const searchLowerCase = this.searchText.toLowerCase();
+    // Check if any of the item properties contain the search text
+    return (
+      item.application_code.toLowerCase().includes(searchLowerCase) ||
+      item.application_title.toLowerCase().includes(searchLowerCase) ||
+      item.application_description.toLowerCase().includes(searchLowerCase)
+    );
   }
 
   fetchDataApplication(): void {
