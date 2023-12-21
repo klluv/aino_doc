@@ -2,7 +2,7 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { ROUTES } from './menu-items';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule, NgIf } from '@angular/common';
 //declare var $: any;
 
@@ -10,12 +10,17 @@ import { CommonModule, NgIf } from '@angular/common';
   selector: 'app-sidebar',
   standalone: true,
   imports:[RouterModule, CommonModule, NgIf],
-  templateUrl: './sidebar.component.html'
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
 })
+
 export class SidebarComponent implements OnInit {
   showMenu = '';
   activeSubMenu: RouteInfo | null = null;
   public sidebarnavItems: RouteInfo[] = [];
+  isDropdownOpen = false;
+  
+
   // this is for the open close
   addExpandClass(element: string): void {
     if (element === this.showMenu) {
@@ -37,6 +42,9 @@ export class SidebarComponent implements OnInit {
     return this.activeSubMenu === sidebarnavItem;
   }
 
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
   
 
   constructor(
