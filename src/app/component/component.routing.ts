@@ -17,6 +17,7 @@ import { UserComponent } from './user/user.component';
 import { AccessGroupComponent } from './access-group/access-group.component';
 import { ApplicationComponent } from './application/application.component';
 import { DivisionComponent } from './division/division.component';
+import { MasterDocComponent } from './master-doc/master-doc.component';
 
 
 
@@ -91,6 +92,10 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'division',
 				component: DivisionComponent
+			},
+			{
+				path: 'doc-settings',
+				component: MasterDocComponent
 			}
 		]
 	}

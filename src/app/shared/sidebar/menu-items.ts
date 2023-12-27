@@ -13,7 +13,17 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '#',
-    title: 'Component',
+    title: 'Formulir',
+    icon: 'bi bi-file-earmark',
+    class: '',
+    extralink: false,
+    dropdown: true,
+    submenu: [
+    ]
+  },
+  {
+    path: '***',
+    title: 'Settings',
     icon: 'bi bi-gear',
     class: '',
     extralink: false,
@@ -25,6 +35,14 @@ export const ROUTES: RouteInfo[] = [
         icon: 'bi bi-person',
         class: '',
         extralink: false,
+        submenu: []
+      },
+      {
+        path: '/main/component/doc-settings',
+        title: 'Setting Documents',
+        icon: 'bi bi-file-plus',
+        class: '',
+        extralink: false, 
         submenu: []
       },
       {

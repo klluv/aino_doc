@@ -1,0 +1,72 @@
+<h1>Pengaturan Dokumen</h1>
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="mb-4">Daftar Dokumen</h3>
+    <button class="btn btn-outline-primary mb-3 btn-sm" (click)="openAddDocModal()"><i class="bi bi-plus"></i> Tambah Dokumen</button>
+  </div>
+  <div class="card-body">
+    <input type="text" class="form-control mb-3" placeholder="Search">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center"> 
+        <thead>
+          <tr>
+            <th scope ="col">No.</th>
+            <th scope ="col">Kode.</th>
+            <th scope ="col">Nama Dokumen</th>
+            <th scope ="col">Format No. Dokumen</th>
+            <th scope ="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope ="row">1</td>
+            <td scope ="row">BA</td>
+            <td scope ="row">Berita Acara</td>
+            <td scope ="row">1/1/111</td> 
+            <button class="btn btn-warning"><i class="bi bi-file-earmark-arrow-down"></i></button>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addDocModal" tabindex="-1" aria-labelledby="addDocModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addDocModalLabel">Tambah Dokumen</h5>
+        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #formForm="ngForm">
+          <div class="mb-3">
+            <label class="col-sm-3 col-form-label">Kode Dokumen</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Masukkan kode dokumen"
+                [(ngModel)]="doc_code" name="doc_code" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="col-sm-3 col-form-label">Nama Dokumen</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Masukkan judul dokumen"
+                [(ngModel)]="doc_title" name="doc_title" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="col-sm-3 col-form-label">Format No. Dokumen</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Masukkan format no. dokumen"
+                [(ngModel)]="doc_format" name="doc_format" required>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-primary" (click)="updateDoc()">Simpan</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -57,7 +57,6 @@ export class ApplicationComponent implements OnInit {
 
   matchesSearch(item: Application): boolean {
     const searchLowerCase = this.searchText.toLowerCase();
-    // Check if any of the item properties contain the search text
     return (
       item.application_code.toLowerCase().includes(searchLowerCase) ||
       item.application_title.toLowerCase().includes(searchLowerCase) ||
@@ -79,7 +78,7 @@ export class ApplicationComponent implements OnInit {
   }
   
 
-  addApplicationModal() {
+  OpenAddApplicationModal() {
     $('#addApplicationModal').modal('show');
     this.application_code = '';
     this.application_title = '';
@@ -109,6 +108,7 @@ export class ApplicationComponent implements OnInit {
       this.application_code = '';
       this.application_title = '';
       this.application_description = '';
+      this.fetchDataApplication();
     })
     .catch((error) => {
       if(error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {

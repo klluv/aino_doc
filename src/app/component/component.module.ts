@@ -24,6 +24,10 @@ import { AccessGroupComponent } from './access-group/access-group.component';
 import { ApplicationComponent } from './application/application.component';
 import { DivisionComponent } from './division/division.component';
 import { UserAddComponent } from './user/user-add/user-add.component';
+import { MasterDocComponent } from './master-doc/master-doc.component';
+import { FormDaComponent } from './form-da/form-da.component';
+import { FormItcmComponent } from './form-itcm/form-itcm.component';
+
 
 @NgModule({
   imports: [
@@ -53,6 +57,9 @@ import { UserAddComponent } from './user/user-add/user-add.component';
        ApplicationComponent,
        DivisionComponent,
        UserAddComponent,
+       MasterDocComponent,
+       FormDaComponent,
+       FormItcmComponent,
   ],
 })
 export class ComponentsModule { }
