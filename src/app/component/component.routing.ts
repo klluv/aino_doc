@@ -18,6 +18,9 @@ import { AccessGroupComponent } from './access-group/access-group.component';
 import { ApplicationComponent } from './application/application.component';
 import { DivisionComponent } from './division/division.component';
 import { MasterDocComponent } from './master-doc/master-doc.component';
+import { FormDaComponent } from './form-da/form-da.component';
+import { FormItcmComponent } from './form-itcm/form-itcm.component';
+
 
 
 
@@ -96,6 +99,14 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'doc-settings',
 				component: MasterDocComponent
+			},
+			{
+				path: 'form-da',
+				component: FormDaComponent
+			},
+			{
+				path: 'form-itcm',
+				component: FormItcmComponent
 			}
 		]
 	}

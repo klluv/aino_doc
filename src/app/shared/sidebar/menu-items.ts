@@ -19,10 +19,26 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     dropdown: true,
     submenu: [
+      {
+        path: '/main/component/form-itcm',
+        title: 'ITCM',
+        icon: 'bi bi-file-earmark',
+        class: '',
+        extralink: false,
+        submenu: []
+      },
+      {
+        path: '/main/component/form-da',
+        title: 'DA',
+        icon: 'bi bi-file-earmark',
+        class: '',
+        extralink: false,
+        submenu: []
+      }
     ]
   },
   {
-    path: '***',
+    path: '#',
     title: 'Settings',
     icon: 'bi bi-gear',
     class: '',

@@ -31,7 +31,7 @@ export class SidebarComponent implements OnInit {
   }
 
   toggleSubMenu(sidebarnavItem: RouteInfo): void {
-    if (this.activeSubMenu === sidebarnavItem) {
+    if (this.isSubMenuActive(sidebarnavItem)) {
       this.activeSubMenu = null;
     } else {
       this.activeSubMenu = sidebarnavItem;

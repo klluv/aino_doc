@@ -35,6 +35,17 @@ export class MasterDocComponent {
     $('#addDocModal').modal('hide');
   }
 
+  addDoc() {
+    
+  }
+
+  openUpdateDocModal() {
+    $('#editDocModal').modal('show');
+  }
+
+  closeUpdateDocModal() {
+    $('#editDocModal').modal('hide');
+  }
   updateDoc() {
     
   }

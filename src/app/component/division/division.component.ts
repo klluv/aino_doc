@@ -123,6 +123,13 @@ export class DivisionComponent implements OnInit {
     .catch((error) => {
       if (error.response.status === 500 || error.response.status === 404) {
         console.log(error.response.data.message)
+        Swal.fire({
+          title: 'Error',
+          text: error.response.data.message,
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1500,
+        })
       }
     })
   }
@@ -149,7 +156,6 @@ export class DivisionComponent implements OnInit {
           timer: 1500,
         });
   
-        // Menyembunyikan modal edit
         $('#editDivisionModal').modal('hide');
       })
       .catch((error) => {

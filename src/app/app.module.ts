@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  CommonModule, LocationStrategy,
+  CommonModule, DatePipe, LocationStrategy,
   PathLocationStrategy
 } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -26,6 +26,7 @@ import { SpinnerComponent } from './shared/spinner.component';
 import { LoginComponent } from './login/login.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,13 +49,15 @@ import { LoginComponent } from './login/login.component';
   providers: [
     {
       provide: LocationStrategy,
-      useClass: PathLocationStrategy
+      useClass: PathLocationStrategy,
+      
     },
     AuthGuard,
     {
       provide: 'apiUrl',
       useValue: environment.apiUrl
-    }
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
