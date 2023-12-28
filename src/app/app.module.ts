@@ -5,7 +5,7 @@ import {
   PathLocationStrategy
 } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -24,6 +24,7 @@ import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
 import { LoginComponent } from './login/login.component';
+
 
 
 
@@ -57,7 +58,8 @@ import { LoginComponent } from './login/login.component';
       provide: 'apiUrl',
       useValue: environment.apiUrl
     },
-    DatePipe
+    DatePipe,
+    FormGroupDirective
   ],
   bootstrap: [AppComponent]
 })

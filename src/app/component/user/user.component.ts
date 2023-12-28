@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
@@ -55,7 +55,6 @@ export class UserComponent implements OnInit {
   dataListRole: Role[] = [];
   dataListDivision: Division[] = [];
 
-
   user_name: string = '';
   user_uuid: string = '';
   user_application_role_uuid: string = '';
@@ -79,6 +78,7 @@ export class UserComponent implements OnInit {
     @Inject('apiUrl') private apiUrl: string,
     private fb: FormBuilder,
     private datePipe: DatePipe,
+    private formGroupDirective: FormGroupDirective,
     public userService: UserService,
   ) {
     this.apiUrl = apiUrl;
@@ -179,6 +179,17 @@ export class UserComponent implements OnInit {
 
   openModalAdd() {
     $('#addUserModal').modal('show');
+    this.user_name = '';
+    this.user_email = '';
+    this.user_password = '';
+    this.personal_name = '';
+    this.personal_birthday = '';
+    this.personal_gender = '';
+    this.personal_phone = '';
+    this.personal_address = '';
+    this.division_uuid = '';
+    this.role_uuid = '';
+    this.application_uuid = '';
   }
 
   togglePasswordVisibility() {
@@ -248,13 +259,13 @@ export class UserComponent implements OnInit {
       })
       .then((response) => {
         console.log(response.data.message);
+        this.fetchDataUser();
         Swal.fire({
           title: 'Success',
           text: response.data.message,
           icon: 'success'
         });
         $('#addUserModal').modal('hide');
-        this.fetchDataUser();
       })
       .catch((error) => {
         if (error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
@@ -337,7 +348,7 @@ export class UserComponent implements OnInit {
       }
     }
 
-    axios.put(`${this.apiUrl}}/superadmin/user/update/${userAppRoleUuid}`,
+    axios.put(`${this.apiUrl}/superadmin/user/update/${userAppRoleUuid}`,
       updateData,
         {
           headers: {
@@ -346,16 +357,19 @@ export class UserComponent implements OnInit {
         })
         .then((response) => {
           console.log(response.data.message);
+          this.fetchDataUser();
+          this.form.reset();
           Swal.fire({
             title: 'Success',
             text: response.data.message,
             icon: 'success',
             timer: 1500
           })
-          this.fetchDataUser();
+          $('#editUserModal').modal('hide');
         })
         .catch((error) => {
           if(error.response.status === 400 || error.response.status === 422 || error.response.status === 404 || error.response.status === 500) {
+            console.log(error.response.data.message)
             Swal.fire({
               title: 'Error',
               text: error.response.data.message,
