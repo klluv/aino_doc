@@ -30,7 +30,7 @@ export class DivisionComponent implements OnInit {
 
   division_uuid: string = '';
   division_code: string = '';
-  division_title: string = '';
+  division_title: string = '';  
 
   constructor(
     private cookieService: CookieService,

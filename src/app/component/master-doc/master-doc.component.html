@@ -18,11 +18,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td scope ="row">1</td>
-            <td scope ="row">BA</td>
-            <td scope ="row">Berita Acara</td>
-            <td scope ="row">1/1/111</td> 
+          <tr *ngFor="let itemDoc of (masterDocService.dataListDoc$ | async)">
+            <td scope ="row">{{ itemDoc.document_uuid }}</td>
+            <td scope ="row">{{ itemDoc.document_code }}</td>
+            <td scope ="row">{{ itemDoc.document_name }}</td>
+            <td scope ="row">{{ itemDoc.document_format_number}}</td> 
             <td>
             <button class="btn btn-primary me-2"><i class="bi bi-file-earmark-arrow-down"></i></button>
             <button class="btn btn-warning" (click)="openUpdateDocModal()"><i class="bi bi-pencil-square"></i></button>
@@ -47,21 +47,21 @@
             <label class="col-sm-3 col-form-label">Kode Dokumen</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" placeholder="Masukkan kode dokumen"
-                [(ngModel)]="doc_code" name="doc_code" required>
+                [(ngModel)]="document_code" name="doc_code" required>
             </div>
           </div>
           <div class="mb-3">
             <label class="col-sm-3 col-form-label">Nama Dokumen</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" placeholder="Masukkan judul dokumen"
-                [(ngModel)]="doc_title" name="doc_title" required>
+                [(ngModel)]="document_name" name="doc_title" required>
             </div>
           </div>
           <div class="mb-3">
             <label class="col-sm-3 col-form-label">Format No. Dokumen</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" placeholder="Masukkan format no. dokumen"
-                [(ngModel)]="doc_format" name="doc_format" required>
+                [(ngModel)]="document_format_number" name="doc_format" required>
             </div>
           </div>
         </form>
@@ -87,21 +87,21 @@
             <label class="col-sm-3 col-form-label">Kode Dokumen</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" placeholder="Masukkan kode dokumen"
-                [(ngModel)]="doc_code" name="doc_code" required>
+                [(ngModel)]="document_code" name="doc_code" required>
             </div>
           </div>
           <div class="mb-3">
             <label class="col-sm-3 col-form-label">Judul Dokumen</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" placeholder="Masukkan judul dokumen"
-                [(ngModel)]="doc_title" name="doc_title" required>
+                [(ngModel)]="document_name" name="doc_title" required>
             </div>
           </div>
           <div class="mb-3">
             <label class="col-sm-3 col-form-label">Format No. Dokumen</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" placeholder="Masukkan format no. dokumen"
-                [(ngModel)]="doc_format" name="doc_format" required>
+                [(ngModel)]="document_format_number" name="doc_format" required>
             </div>
           </div>
         </form>

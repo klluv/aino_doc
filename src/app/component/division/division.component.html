@@ -17,7 +17,7 @@
         <tbody>
           <tr *ngFor="let itemDiv of (divisionService.dataListDivision$ | async)">
             <td>{{ itemDiv.division_code }}</td>
-            <td>{{ itemDiv.division_title }}</td>
+            <td>{{ itemDiv.division_title }}</td> 
             <td>
               <button class="btn btn-warning btn-sm" (click)="getSpecDiv(itemDiv.division_uuid)"><i
                   class="bi bi-pen"></i> Edit</button>
