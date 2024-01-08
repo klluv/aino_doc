@@ -72,25 +72,127 @@ export class MasterDocComponent implements OnInit {
     const token = this.cookieService.get('userToken');
 
     axios.post(`${this.apiUrl}/superadmin/document/add`,
+    { document_code: this.document_code, document_name: this.document_name, document_format_number: this.document_format_number },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+    )
+      .then((response) => {
+        console.log(response.data.message);
+        this.fetchDataDoc();
+        Swal.fire({
+          title: 'Success',
+          text: response.data.message,
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        $('#addDocModal').modal('hide');
+        this.document_code = '';
+        this.document_name = '';
+        this.document_format_number = '';
+      })
+      .catch((error) => {
+        if (error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Terjadi kesalahan',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
   }
 
-  closeAddDocModal() {
-    $('#addDocModal').modal('hide');
+  getSpecificDoc(documentUuid: string): void {
+    axios.get(`${this.apiUrl}/document/` + documentUuid)
+      .then((response) => {
+        console.log(response.data)
+        const documentData = response.data;
+        this.document_uuid = documentData.document_uuid;
+        this.document_code = documentData.document_code;
+        this.document_name = documentData.document_name;
+        this.document_format_number = documentData.document_format_number;
+
+        $('#editDocModal').modal('show');
+      })
+      .catch((error) => {
+        if (error.response.status === 500 || error.response.status === 404) {
+          console.log(error.response.data.message);
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+        } else (
+          Swal.fire({
+            title: 'Error',
+            text: 'Terjadi kesalahan',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+        )
+      })
   }
 
-  addDoc() {
+  updateMasterDoc(): void {
+    const token = this.cookieService.get('userToken');
+    const documentUuid = this.document_uuid;
     
-  }
+    axios.put(`${this.apiUrl}/superadmin/document/update/${documentUuid}`,
+    { document_code: this.document_code, document_name: this.document_name, document_format_number: this.document_format_number },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+    )
+      .then((response) => {
+        console.log(response.data.message);
+        this.fetchDataDoc();
+        Swal.fire({
+          title: 'Success',
+          text: response.data.message,
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
 
-  openUpdateDocModal() {
-    $('#editDocModal').modal('show');
-  }
-
-  closeUpdateDocModal() {
-    $('#editDocModal').modal('hide');
-  }
-  updateDoc() {
-    
+        $('#editDocModal').modal('hide');
+      }) 
+      .catch((error) => {
+        if (error.response.status === 400 || error.response.status === 422 || error.response.status === 404 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Terjadi kesalahan',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
   }
 }
 

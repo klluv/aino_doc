@@ -130,6 +130,15 @@ export class DivisionComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         })
+      } else {
+        Swal.fire({
+          title: 'Error',
+          text: 'Terjadi kesalahan',
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error.response)
       }
     })
   }
@@ -159,15 +168,23 @@ export class DivisionComponent implements OnInit {
         $('#editDivisionModal').modal('hide');
       })
       .catch((error) => {
-        console.error('Error updating division:', error);
-  
-        Swal.fire({
-          title: 'Error',
-          text: 'Terjadi kesalahan',
-          icon: 'error',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        if (error.response.status === 400 || error.response.status === 422 || error.response.status === 404 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Terjadi kesalahan',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       });
   }
   
