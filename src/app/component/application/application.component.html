@@ -2,11 +2,16 @@
 <div class="card">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h3 class="mb-4">Daftar Aplikasi</h3>
-    <button class="btn btn-outline-primary mb-3 btn-sm" (click)="OpenAddApplicationModal()"><i class="bi bi-plus-lg"></i> Tambah
+    <button class="btn btn-outline-primary mb-3 btn-sm" (click)="OpenAddApplicationModal()"><i
+        class="bi bi-plus-lg"></i> Tambah
       Aplikasi</button>
   </div>
   <div class="card-body">
-    <input type="text" class="form-control mb-3" [(ngModel)]="searchText" name="searchText" placeholder="Search">
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+      <input type="text" class="form-control" [(ngModel)]="searchText" name="searchText" placeholder="Search"
+        aria-describedby="button-addon2">
+    </div>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -20,13 +25,13 @@
         <tbody>
           <tr *ngFor="let itemApp of (applicationService.dataListApplication$ | async)">
             <ng-container *ngIf="matchesSearch(itemApp)">
-            <td>{{ itemApp.application_code }}</td>
-            <td>{{ itemApp.application_title }}</td>
-            <td>{{ itemApp.application_description }}</td>
-            <td>
-              <button class="btn btn-warning btn-sm" (click)="getSpecApp(itemApp.application_uuid)"><i
-                  class="bi bi-pen"></i></button>
-            </td>
+              <td>{{ itemApp.application_code }}</td>
+              <td>{{ itemApp.application_title }}</td>
+              <td>{{ itemApp.application_description }}</td>
+              <td>
+                <button class="btn btn-warning btn-sm" (click)="getSpecApp(itemApp.application_uuid)"><i
+                    class="bi bi-pen"></i></button>
+              </td>
             </ng-container>
           </tr>
         </tbody>
@@ -89,24 +94,27 @@
         <div class="mb-3">
           <label class="col-sm-3 col-form-label">Kode App.</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" placeholder="Masukkan Kode Aplikasi" [(ngModel)]="application_code" name="application_code" required>
+            <input type="text" class="form-control" placeholder="Masukkan Kode Aplikasi" [(ngModel)]="application_code"
+              name="application_code" required>
           </div>
         </div>
         <div class="mb-3">
           <label class="col-sm-3 col-form-label">Judul</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" placeholder="Masukkan Judul" [(ngModel)]="application_title" name="application_title" required>
+            <input type="text" class="form-control" placeholder="Masukkan Judul" [(ngModel)]="application_title"
+              name="application_title" required>
           </div>
         </div>
         <div class="mb-3">
           <label class="col-sm-3 col-form-label">Deskripsi</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" placeholder="Masukkan Deskripsi" [(ngModel)]="application_description" name="application_description" required>
+            <input type="text" class="form-control" placeholder="Masukkan Deskripsi"
+              [(ngModel)]="application_description" name="application_description" required>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
         <button type="button" class="btn btn-primary" (click)="updateApplication()">Simpan</button>
       </div>
     </div>

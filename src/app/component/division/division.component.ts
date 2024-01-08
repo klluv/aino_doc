@@ -28,6 +28,8 @@ interface Division {
 })
 export class DivisionComponent implements OnInit {
 
+  searchText: string = '';
+
   division_uuid: string = '';
   division_code: string = '';
   division_title: string = '';  
@@ -46,6 +48,14 @@ export class DivisionComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchDataDivision();
+  }
+
+  matchesSearch(item: Division): boolean {
+    const searchLowerCase = this.searchText.toLowerCase();
+    return (
+      item.division_code.toLowerCase().includes(searchLowerCase) ||
+      item.division_title.toLowerCase().includes(searchLowerCase)
+    );
   }
 
   fetchDataDivision(): void {

@@ -27,6 +27,8 @@ interface Role {
 })
 export class AccessGroupComponent implements OnInit {
 
+  searchText: string = '';
+
   role_uuid: string = '';
   role_code: string = '';
   role_title: string = '';
@@ -43,6 +45,14 @@ export class AccessGroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchDataRoleGroup();
+  }
+
+  matchesSearch(item: Role): boolean {
+    const searchLowerCase = this.searchText.toLowerCase();
+    return (
+      item.role_code.toLowerCase().includes(searchLowerCase) ||
+      item.role_title.toLowerCase().includes(searchLowerCase)
+    );
   }
 
   fetchDataRoleGroup(): void {

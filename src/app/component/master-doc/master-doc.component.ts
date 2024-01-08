@@ -45,6 +45,15 @@ export class MasterDocComponent implements OnInit {
 
   dataListDoc: documents[] = [];
 
+  matchesSearch(item: documents): boolean {
+    const searchLowerCase = this.searchText.toLowerCase();
+    return (
+      item.document_code.toLowerCase().includes(searchLowerCase) ||
+      item.document_name.toLowerCase().includes(searchLowerCase) ||
+      item.document_format_number.toLowerCase().includes(searchLowerCase)
+    );
+  }
+
   fetchDataDoc(): void {
     axios.get(`${this.apiUrl}/document/all`) 
       .then((response) => {

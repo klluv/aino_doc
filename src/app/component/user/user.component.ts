@@ -50,6 +50,9 @@ interface Division {
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+
+  searchText: string = '';
+
   form!: FormGroup;
   dataListApplication: Application[] = [];
   dataListRole: Role[] = [];
@@ -105,6 +108,16 @@ export class UserComponent implements OnInit {
     this.appData();
     this.roleData();
     this.divisionData();
+  }
+
+  matchesSearch(item: Users): boolean {
+    const searchLowerCase = this.searchText.toLowerCase();
+    return (
+      item.user_name.toLowerCase().includes(searchLowerCase) ||
+      item.user_email.toLowerCase().includes(searchLowerCase) ||
+      item.personal_phone.toLowerCase().includes(searchLowerCase) ||
+      item.division_title.toLowerCase().includes(searchLowerCase)
+    );
   }
 
   fetchDataUser(): void {

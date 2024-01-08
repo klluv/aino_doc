@@ -1,6 +1,4 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
@@ -38,7 +36,6 @@ export class ApplicationComponent implements OnInit {
   application_description: string = '';
   
   constructor(
-    private router: Router,
     private cookieService: CookieService,
     public applicationService: ApplicationService,
     @Inject('apiUrl') private apiUrl: string
