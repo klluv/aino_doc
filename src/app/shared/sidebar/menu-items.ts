@@ -199,12 +199,4 @@ export const ROUTES: RouteInfo[] = [
   //   extralink: false,
   //   submenu: []
   // },
-  {
-    path: '/login',
-    title: 'Login',
-    icon: 'bi bi-box-arrow-in-right',
-    class: '',
-    extralink: false,
-    submenu: []
-  }
 ];

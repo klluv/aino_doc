@@ -271,6 +271,7 @@ export class UserComponent implements OnInit {
         }
       })
       .then((response) => {
+        console.log(response.data.applicationRole.application_uuid)
         console.log(response.data.message);
         this.fetchDataUser();
         Swal.fire({

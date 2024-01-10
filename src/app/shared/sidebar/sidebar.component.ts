@@ -19,6 +19,7 @@ export class SidebarComponent implements OnInit {
   activeSubMenu: RouteInfo | null = null;
   public sidebarnavItems: RouteInfo[] = [];
   isDropdownOpen = false;
+  isDropdownMenuTitleActive = "";
   
 
   // this is for the open close
@@ -42,7 +43,8 @@ export class SidebarComponent implements OnInit {
     return this.activeSubMenu === sidebarnavItem;
   }
 
-  toggleDropdown(): void {
+  toggleDropdown(sidebarnavItem: RouteInfo): void {
+    this.isDropdownMenuTitleActive = sidebarnavItem.title
     this.isDropdownOpen = !this.isDropdownOpen;
   }
   

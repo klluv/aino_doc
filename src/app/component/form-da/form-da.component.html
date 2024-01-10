@@ -1,74 +1,113 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card shadow-lg">
-        <div class="card-header">
-          <h1 class="text-center">DA Form</h1>
-        </div>
-        <div class="card-body">
+<h1>DA Form</h1>
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3>DA Form</h3>
+    <button class="btn btn-outline-primary mb-3 btn-sm" (click)="openModalAdd()"><i class="bi bi-plus-lg"></i>
+      Add DA</button>
+  </div>
+  <div class="card-body">
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+      <input type="text" class="form-control" [(ngModel)]="searchText" name="searchText" placeholder="Search"
+        aria-describedby="button-addon2">
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Pengaju</th>
+            <th scope="col">Disetujui</th>
+            <th scope="col">Mengetahui</th>
+            <th scope="col">Eksekutor</th>
+            <th scope="col">No. DA</th>
+            <th scope="col">Deskripsi</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <ng-container>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <button class="btn btn-warning btn-sm"><i class="bi bi-pen"></i></button>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
-          <form>
-            <div class="mb-3">
-              <label for="applicant" class="form-label">Pengaju:</label>
-              <select class="form-select" name="applicant" id="applicant">
-                <option value="" disabled selected>Pilih Pengaju</option>
-                <option value="1">user1</option>
-                <option value="2">user2</option>
-                <option value="3">user3</option>
-              </select>
+<div class="modal fade" id="addDAModal" tabindex="-1" aria-labelledby="addDAModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addDAModalLabel">Add DA</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="pengaju" class="form-label">Pengaju:</label>
+                <select class="form-select" id="pengaju" name="pengaju" aria-label="Select Pengaju">
+                  <option value="" disabled selected>Pilih Pengaju</option>
+                  <option value="1">user1</option>
+                  <option value="2">user2</option>
+                </select>
+              </div>
             </div>
-
-            <div class="mb-3">
-              <label for="approved" class="form-label">Disetujui:</label>
-              <select class="form-select" name="approved" id="approved">
-                <option value="" disabled selected>Pilih Disetujui</option>
-                <option value="1">user1</option>
-                <option value="2">user2</option>
-                <option value="3">user3</option>
-              </select>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="disetujui" class="form-label">Disetujui:</label>
+                <select class="form-select" id="disetujui" name="disetujui" aria-label="Select Disetujui">
+                  <option value="" disabled selected>Pilih Disetujui</option>
+                  <option value="1">user1</option>
+                  <option value="2">user2</option>
+                </select>
+              </div>
             </div>
-
-            <div class="mb-3">
-              <label for="isKnown" class="form-label">Mengetahui:</label>
-              <select class="form-select" name="isKnown" id="isKnown">
-                <option value="" disabled selected>Pilih Mengetahui</option>
-                <option value="1">user1</option>
-                <option value="2">user2</option>
-                <option value="3">user3</option>
-              </select>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="mengetahui" class="form-label">Mengetahui:</label>
+                <select class="form-select" id="mengetahui" name="mengetahui" aria-label="Select mengetahui">
+                  <option value="" disabled selected>Pilih Mengetahui</option>
+                  <option value="1">user1</option>
+                  <option value="2">user2</option>
+                </select>
+              </div>
             </div>
-
-            <div class="mb-3">
-              <label for="executor" class="form-label">Eskutor:</label>
-              <select class="form-select" name="executor" id="executor">
-                <option value="" disabled selected>Pilih Eksutor</option>
-                <option value="1">user1</option>
-                <option value="2">user2</option>
-                <option value="3">user3</option>
-              </select>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="eksekutor" class="form-label">Eksekutor:</label>
+                <select class="form-select" id="eksekutor" name="eksekutor" aria-label="Select eksekutor">
+                  <option value="" disabled selected>Pilih eksekutor</option>
+                  <option value="1">user1</option>
+                  <option value="2">user2</option>
+                </select>
+              </div>
             </div>
-
-            <div class="mb-3">
-              <label for="noTiket" class="form-label">No Tiket:</label>
-              <input type="text" class="form-control" id="noTiket" name="noTiket" required>
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="noDA" class="form-label">No. DA:</label>
+                <input type="text" class="form-control-plaintext" readonly id="noDA" name="noDA" value="noDA">
+              </div>
             </div>
-
-            <div class="mb-3">
-              <label for="da-code" class="form-label">No DA:</label>
-              <input class="form-control" type="text" placeholder="No DA" readonly>
+            <div class="col-md-8">
+              <div class="mb-3">
+                <label for="deskripsi" class="form-label">Deskripsi:</label>
+                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" required></textarea>
+              </div>
             </div>
-
-            <div class="mb-3">
-              <label for="deskripsi" class="form-label">Deskripsi:</label>
-              <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" required></textarea>
-            </div>
-
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-          </form>
-
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
