@@ -120,7 +120,7 @@ export class AccessGroupComponent implements OnInit {
       this.role_code = roleData.role_code;
       this.role_title = roleData.role_title;
 
-      $('#addRoleModal').modal('show');
+      $('#editRoleModal').modal('show');
     })
     .catch((error) => {
       if (error.response.status === 500 || error.response.status === 404) {
@@ -150,7 +150,7 @@ export class AccessGroupComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500,
       })
-      $('#addRoleModal').modal('hide');
+      $('#editRoleModal').modal('hide');
     })
     .catch((error) => {
       if(error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {

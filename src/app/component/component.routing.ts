@@ -20,6 +20,7 @@ import { DivisionComponent } from './division/division.component';
 import { MasterDocComponent } from './master-doc/master-doc.component';
 import { FormDaComponent } from './form-da/form-da.component';
 import { FormItcmComponent } from './form-itcm/form-itcm.component';
+import { AppRoleComponent } from './app-role/app-role.component';
 
 
 
@@ -95,6 +96,10 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'division',
 				component: DivisionComponent
+			},
+			{
+				path: 'app-role',
+				component: AppRoleComponent
 			},
 			{
 				path: 'doc-settings',

@@ -27,6 +27,7 @@ import { UserAddComponent } from './user/user-add/user-add.component';
 import { MasterDocComponent } from './master-doc/master-doc.component';
 import { FormDaComponent } from './form-da/form-da.component';
 import { FormItcmComponent } from './form-itcm/form-itcm.component';
+import { AppRoleComponent } from './app-role/app-role.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { FormItcmComponent } from './form-itcm/form-itcm.component';
        MasterDocComponent,
        FormDaComponent,
        FormItcmComponent,
+       AppRoleComponent,
   ],
 })
 export class ComponentsModule { }

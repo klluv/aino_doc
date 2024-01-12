@@ -1,51 +1,48 @@
-<div class="container mt-5">
-  <h1 class="display-4">User Control</h1>
-  <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <h3 class="mb-4">Daftar User</h3>
-      <button class="btn btn-outline-primary mb-3 btn-sm" (click)="openModalAdd()"><i class="bi bi-plus-lg"></i> Add
-        User</button>
-    </div>
-    <div class="card-body">
-      <div class="input-group mb-3">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
-        <input type="text" class="form-control" [(ngModel)]="searchText" name="searchText" placeholder="Search"
-          aria-describedby="button-addon2">
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Nama</th>
-            <th scope="col">Email</th>
-            <th scope="col">Divisi</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of (userService.dataListUser$ | async)">
-            <ng-container *ngIf="matchesSearch(user)">
-              <td>{{ user.user_name }}</td>
-              <td>{{ user.user_email }}</td>
-              <td>{{ user.division_title }}</td>
-              <td>
-                <button class="btn btn-warning btn-sm" (click)="getSpecUser(user.user_application_role_uuid)"><i
-                    class="bi bi-pen"></i></button>
-                <button class="btn btn-danger btn-sm ms-2" (click)="onDeleteUser(user.user_application_role_uuid)"><i
-                    class="bi bi-trash"></i></button>
-              </td>
-            </ng-container>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<h1>User Control</h1>
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="mb-4">Daftar User</h3>
+    <button class="btn btn-outline-primary mb-3 btn-sm" (click)="openModalAdd()"><i class="bi bi-plus-lg"></i> Tambah 
+      User</button>
   </div>
-
+  <div class="card-body">
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+      <input type="text" class="form-control" [(ngModel)]="searchText" name="searchText" placeholder="Search"
+        aria-describedby="button-addon2">
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nama</th>
+          <th scope="col">Email</th>
+          <th scope="col">Divisi</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of (userService.dataListUser$ | async)">
+          <ng-container *ngIf="matchesSearch(user)">
+            <td>{{ user.user_name }}</td>
+            <td>{{ user.user_email }}</td>
+            <td>{{ user.division_title }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm" (click)="getSpecUser(user.user_application_role_uuid)"><i
+                class="bi bi-pencil-square"></i></button>
+              <button class="btn btn-danger btn-sm ms-2" (click)="onDeleteUser(user.user_application_role_uuid)"><i
+                  class="bi bi-trash"></i></button>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
+          <h5 class="modal-title" id="addUserModalLabel">Tambah User</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -67,7 +64,7 @@
               </div>
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label class="form-label">User Email</label>
+                  <label class="form-label">Email</label>
                   <input type="email" name="user_email" [(ngModel)]="user_email" required class="form-control"
                     placeholder="example@ainosi.co.id">
                 </div>
@@ -87,7 +84,7 @@
               </div>
 
               <div class="col-md-6">
-                <label class="col-sm-3 col-form-label">Birthday</label>
+                <label class="col-sm6 col-form-label">Tanggal Lahir</label>
                 <div class="input-group">
                   <input type="date" name="user_birthday_add" [(ngModel)]="personal_birthday" class="form-control">
                 </div>
@@ -95,40 +92,38 @@
 
 
               <div class="col-md-6">
-                <label class="col-sm-3 col-form-label">Gender</label>
+                <label class="col-sm-6 col-form-label">Gender</label>
                 <select class="form-select" data-test="select_gender" aria-label="Select Gender"
                   [(ngModel)]="personal_gender" name="personal_gender">
-                  <option value="" disabled selected>Select Gender</option>
+                  <option value="" disabled selected>Pilih Gender</option>
                   <option value="Laki-laki">Laki-laki</option>
                   <option value="Perempuan">Perempuan</option>
                 </select>
               </div>
 
               <div class="col-md-6">
-                <label class="col-sm-3 col-form-label">Phone</label>
+                <label class="col-sm-3 col-form-label">No. HP</label>
                 <input type="text" name="personal_phone_add" [(ngModel)]="personal_phone" class="form-control"
                   placeholder="Enter your phone number">
               </div>
 
 
               <div class="col-md-6">
-                <label class="col-sm-3 col-form-label">Address</label>
+                <label class="col-sm-3 col-form-label">Alamat</label>
                 <input type="text" name="personal_address_add" [(ngModel)]="personal_address" class="form-control"
                   placeholder="Enter your address">
               </div>
 
-              <div class="col-md-4">
+              <div class="mb-3">
                 <label class="col-sm-3 col-form-label">Application</label>
-                <select class="form-select" data-test="select_application" aria-label="Select Application"
-                  [(ngModel)]="form.value.application_uuid" name="appUuid">
+                <select class="form-select" data-test="select_application" aria-label="Select Application" name="application_uuid" [(ngModel)]="application_uuid" (change)="onApplicationChange()">
                   <option value="" disabled selected>Select Application</option>
-                  <option *ngFor="let app of dataListApplication" [value]="app.application_uuid">{{
-                    app.application_title }}
-                  </option>
+                  <option *ngFor="let app of dataListApplication" [value]="app.application_uuid">{{ app.application_title }}</option>
                 </select>
               </div>
+              
               <div class="col-md-4">
-                <label class="col-sm-3 col-form-label">Role</label>
+                <label class="col-sm-4 col-form-label">Role</label>
                 <select class="form-select" aria-label="Select Role" data-test="select_role"
                   [(ngModel)]="form.value.role_uuid" name="roleUuid">
                   <option value="" disabled selected>Select Role</option>
@@ -136,7 +131,7 @@
                 </select>
               </div>
               <div class="col-md-4">
-                <label class="col-sm-3 col-form-label">Division</label>
+                <label class="col-sm-4 col-form-label">Divisi</label>
                 <select class="form-select" aria-label="Select Division" data-test="select_division"
                   [(ngModel)]="form.value.division_uuid" name="division_uuid">
                   <option value="" disabled selected>Select Division</option>

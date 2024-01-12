@@ -32,11 +32,6 @@ export class LoginComponent {
     axios.post(`${this.apiUrl}/login`, this.loginData)
     .then((response) => {
       console.log(response.data.message);
-      Swal.fire({
-        title: "Success",
-        text: "Login berhasil",
-        icon: "success"
-      });      
       this.cookieService.set('userToken', response.data.token);
       this.router.navigateByUrl('/main/dashboard');
     })

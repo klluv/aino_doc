@@ -135,8 +135,13 @@ export class UserComponent implements OnInit {
       .catch((error) => {
         if (error.response.status === 500) {
           console.log(error.response.data.message)
+          Swal.fire({
+            icon: 'error',
+            title: 'Kesalahan',
+            text: error.response.data.message
+          })
         } else {
-          console.log(error)
+          console.log(error);
         }
       })
   }
@@ -144,7 +149,7 @@ export class UserComponent implements OnInit {
   onDeleteUser(user_application_role_uuid: string): void {
     Swal.fire({
       title: "Konfirmasi",
-      text: "Anda yakin ingin menghapus kategori ini?",
+      text: "Anda yakin ingin menghapus user ini?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -203,6 +208,7 @@ export class UserComponent implements OnInit {
     this.division_uuid = '';
     this.role_uuid = '';
     this.application_uuid = '';
+    this.onApplicationChange();
   }
 
   togglePasswordVisibility() {
@@ -231,6 +237,27 @@ export class UserComponent implements OnInit {
           console.log(error.response.data.message)
         }
       })
+  }
+
+  onApplicationChange(): void {
+    if (this.application_uuid) {
+      this.roleByAppData(this.application_uuid);
+    } else {
+      this.dataListRole = [];
+    }
+  }
+  
+
+  roleByAppData(application_uuid: string): void {
+    axios.get(`${this.apiUrl}/list/role/${this.application_uuid}`)
+    .then((response) => {
+      this.dataListRole = response.data;
+    })
+    .catch((error) => {
+      if(error.response.status === 500) {
+        console.log(error.response.data.message)
+      }
+    })
   }
 
   divisionData(): void {

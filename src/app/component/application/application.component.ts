@@ -123,6 +123,7 @@ export class ApplicationComponent implements OnInit {
       }
     });
   }
+  
   getSpecApp(applicationUuid: string): void {
     axios.get(`${this.apiUrl}/application/${applicationUuid}`)
     .then((response) => {
@@ -138,6 +139,17 @@ export class ApplicationComponent implements OnInit {
     .catch((error) => {
       if (error.response.status === 500 || error.response.status === 404) {
         console.log(error.response.data.message)
+        Swal.fire({
+          title: 'Error',
+          text: error.response.data.message,
+          icon: 'error'
+        });
+      } else {
+        Swal.fire({
+          title: 'Error',
+          text: 'Terjadi kesalahan',
+          icon: 'error'
+        });
       }
     })
   }
