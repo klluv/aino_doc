@@ -214,10 +214,10 @@
               </div>
 
               <div class="col-md-4">
-                <label class="col-sm-3 col-form-label">Application</label>
+                <label class="col-sm-3 col-form-label">Aplikasi</label>
                 <select class="form-select" data-test="select_application" aria-label="Select Application"
                   [(ngModel)]="form.value.application_uuid" name="appUuid">
-                  <option value="" disabled selected>Select Application</option>
+                  <option value="" disabled selected>Pilih Aplikasi</option>
                   <option *ngFor="let app of dataListApplication" [value]="app.application_uuid">{{
                     app.application_title }}
                   </option>
@@ -227,7 +227,7 @@
                 <label class="col-sm-3 col-form-label">Role</label>
                 <select class="form-select" aria-label="Select Role" data-test="select_role"
                   [(ngModel)]="form.value.role_uuid" name="roleUuid">
-                  <option value="" disabled selected>Select Role</option>
+                  <option value="" disabled selected>Pilih Role</option>
                   <option *ngFor="let role of dataListRole" [value]="role.role_uuid">{{ role.role_title }}</option>
                 </select>
               </div>
@@ -235,7 +235,7 @@
                 <label class="col-sm-3 col-form-label">Division</label>
                 <select class="form-select" aria-label="Select Division" data-test="select_division"
                   [(ngModel)]="form.value.division_uuid" name="division_uuid">
-                  <option value="" disabled selected>Select Division</option>
+                  <option value="" disabled selected>Pilih Divisi</option>
                   <option *ngFor="let division of dataListDivision" [value]="division.division_uuid">{{
                     division.division_title }}</option>
                 </select>
@@ -245,7 +245,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" (click)="updateUser()" class="btn btn-primary">Save changes</button>
+          <button type="button" (click)="updateUser()" class="btn btn-primary">Simpan Perubahan</button>
         </div>
       </div>
     </div>

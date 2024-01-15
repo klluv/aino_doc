@@ -98,7 +98,7 @@ export const ComponentsRoutes: Routes = [
 				component: DivisionComponent
 			},
 			{
-				path: 'app-role',
+				path: 'otoritas',
 				component: AppRoleComponent
 			},
 			{

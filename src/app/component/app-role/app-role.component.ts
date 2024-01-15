@@ -48,15 +48,15 @@ export class AppRoleComponent implements OnInit {
   role_uuid: string = '';
   role_title: string = '';
 
-    constructor(
+  constructor(
     private cookieService: CookieService,
     public appRoleService: AppRoleService,
     @Inject('apiUrl') private apiUrl: string,
     private fb: FormBuilder
-    ) {
+  ) {
 
-      this.apiUrl = apiUrl;
-    }
+    this.apiUrl = apiUrl;
+  }
 
   dataListAppRole: AppRole[] = [];
 
@@ -110,25 +110,27 @@ export class AppRoleComponent implements OnInit {
     this.application_title = '';
     this.role_title = '';
     this.appData();
-    this.roleData();  
+    this.roleData();
   }
 
   appData(): void {
     axios.get(`${this.apiUrl}/application/all`)
-    .then((response) => {
-      this.dataListApplication = response.data;
-    })
-    .catch((error) => {
-      if(error.response.status === 500) {
-        console.log(error.response.data.message)
-      }
-    })
+      .then((response) => {
+        this.dataListApplication = response.data;
+        console.log(this.dataListApplication);
+      })
+      .catch((error) => {
+        if (error.response.status === 500) {
+          console.log(error.response.data.message)
+        }
+      })
   }
 
   roleData(): void {
     axios.get(`${this.apiUrl}/role/all`)
       .then((response) => {
         this.dataListRole = response.data;
+        console.log(this.dataListRole);
       })
       .catch((error) => {
         if (error.response.status === 500) {
@@ -140,109 +142,125 @@ export class AppRoleComponent implements OnInit {
   addAppRole() {
     const token = this.cookieService.get('userToken');
 
-    axios.post(`${this.apiUrl}/superadmin/application/role/add`, 
-    { application_uuid: this.form.value.application_uuid, role_uuid: this.form.value.role_uuid },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then((response) => {
-      console.log(response.data.message);
-      Swal.fire({
-        title: 'Success',
-        text: response.data.message,
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      $('#addAppRoleModal').modal('hide');
-      this.fetchDataAppRole();
-      this.application_title = '';
-      this.role_title = '';
-      this.application_title = '';
-    })
-    .catch((error) => {
-      if(error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
+    axios.post(`${this.apiUrl}/superadmin/application/role/add`,
+      { application_uuid: this.form.value.application_uuid, role_uuid: this.form.value.role_uuid },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        console.log(response.data.message);
         Swal.fire({
-          title: 'Error',
-          text: error.response.data.message,
-          icon: 'error'
+          title: 'Success',
+          text: response.data.message,
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
         });
-      } else {
-        Swal.fire({
-          title: 'Error',
-          text: 'Terjadi Kesalahan',
-          icon: 'error'
-        });
-      }
-    })
+        $('#addAppRoleModal').modal('hide');
+        this.fetchDataAppRole();
+        this.application_title = '';
+        this.role_title = '';
+        this.application_title = '';
+      })
+      .catch((error) => {
+        if (error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error'
+          });
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Terjadi Kesalahan',
+            icon: 'error'
+          });
+        }
+      })
   }
 
   getSpecAppRole(application_role_uuid: string) {
     axios.get(`${this.apiUrl}/application/role/${application_role_uuid}`)
-    .then((response) => {
-      const appRoleData = response.data;
-      console.log(appRoleData);
-      this.application_role_uuid = appRoleData.application_role_uuid; 
-      this.application_title = appRoleData.application_title;
-      this.role_title = appRoleData.role_title;
-    })
-    .catch((error) => {
-      if(error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
-        Swal.fire({
-          title: 'Error',
-          text: error.response.data.message,
-          icon: 'error'
+      .then((response) => {
+        const appRoleData = response.data;
+        console.log(appRoleData);
+        this.application_role_uuid = application_role_uuid;
+
+        const existingApp = this.dataListApplication.find(app => app.application_title
+          === appRoleData.application_title
+        );
+        const existingRole = this.dataListRole.find(role => role.role_title === appRoleData.role_title);
+
+        this.form.patchValue({
+          application_uuid: existingApp ? existingApp.application_uuid : '',
+          role_uuid: existingRole ? existingRole.role_uuid : ''
         });
-      } else {
-        Swal.fire({
-          title: 'Error',
-          text: 'Terjadi Kesalahan',
-          icon: 'error'
-        });
-      }
-    })
+
+        $('#editAppRoleModal').modal('show');
+      })
+      .catch((error) => {
+        if (error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error'
+          });
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Terjadi Kesalahan',
+            icon: 'error'
+          });
+        }
+      });
   }
+
 
   updateAppRole(): void {
     const token = this.cookieService.get('userToken');
+    const appRoleFormValue = this.form.value;
     const appRoleUuid = this.application_role_uuid;
+    const sendUpdateData = {
+      application_uuid: appRoleFormValue.application_uuid,
+      role_uuid: appRoleFormValue.role_uuid
+    }
 
     axios.put(`${this.apiUrl}/superadmin/application/role/update/${appRoleUuid}`,
-    { application_title: this.application_title, role_title: this.role_title },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then((response) => {
-      console.log(response.data.message);;
-      this.fetchDataAppRole();
-      Swal.fire({
-        title: 'Success',
-        text: response.data.message,
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
+      sendUpdateData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
-      $('#editAppRoleModal').modal('hide');
-    })
-    .catch((error) => {
-      if(error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
+      .then((response) => {
+        console.log(response.data.message);;
+        this.fetchDataAppRole();
         Swal.fire({
-          title: 'Error',
-          text: error.response.data.message,
-          icon: 'error'
-        });
-      } else {
-        Swal.fire({
-          title: 'Error',
-          text: 'Terjadi Kesalahan',
-          icon: 'error'
-        });
-      }
-    })
+          title: 'Success',
+          text: response.data.message,
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+        $('#editAppRoleModal').modal('hide');
+      })
+      .catch((error) => {
+        if (error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error'
+          });
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Terjadi Kesalahan',
+            icon: 'error'
+          });
+        }
+      })
   }
 
   onDeleteAppRole(application_role_uuid: string): void {
@@ -266,7 +284,7 @@ export class AppRoleComponent implements OnInit {
     const token = this.cookieService.get('userToken');
 
     axios.put(`${this.apiUrl}/superadmin/application/role/delete/${application_role_uuid}`,
-    {},
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -290,7 +308,7 @@ export class AppRoleComponent implements OnInit {
             text: error.response.data.message,
             icon: 'error'
           })
-      }
+        }
       })
   }
 }

@@ -86,8 +86,8 @@ export const ROUTES: RouteInfo[] = [
         submenu: []
       },
       {
-        path: '/main/component/app-role',
-        title: 'App Role',
+        path: '/main/component/otoritas',
+        title: 'Otoritas',
         icon: 'bi bi-person-rolodex',
         class: '',
         extralink: false,

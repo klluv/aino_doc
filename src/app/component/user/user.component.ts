@@ -48,7 +48,7 @@ interface Division {
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
-})
+})  
 export class UserComponent implements OnInit {
 
   searchText: string = '';
@@ -75,6 +75,11 @@ export class UserComponent implements OnInit {
   application_uuid: string = '';
   application_title: string = '';
   showPassword: boolean = false;
+
+  existingApp: string = '';
+  existingRole: string = '';
+  existingDivision: string = '';
+  
 
   constructor(
     private cookieService: CookieService,
@@ -325,7 +330,13 @@ export class UserComponent implements OnInit {
       })
   }
 
-
+  editUserModal(user_application_role_uuid: string): void {
+    this.form.patchValue({
+      application_uuid: this.existingApp,
+      role_uuid: this.existingRole,
+      division_uuid: this.existingDivision
+    })
+  }
   getSpecUser(user_application_role_uuid: string): void {
     axios.get(`${this.apiUrl}/user/` + user_application_role_uuid)
       .then((response) => {
@@ -338,14 +349,15 @@ export class UserComponent implements OnInit {
         this.user_application_role_uuid = userData.user_application_role_uuid;
         this.user_name = userData.user_name;
         this.user_email = userData.user_email;
-        this.role_title = userData.role_title;
-        this.division_title = userData.division_title;
-        this.application_title = userData.application_title;
         this.personal_name = userData.personal_name;
         this.personal_birthday = userData.personal_birthday;
         this.personal_gender = userData.personal_gender;
         this.personal_phone = userData.personal_phone;
         this.personal_address = userData.personal_address;
+
+        this.existingApp = userData.applicationRole.application_uuid;
+      this.existingRole = userData.applicationRole.role_uuid;
+      this.existingDivision = userData.applicationRole.division_uuid;
 
         $('#editUserModal').modal('show');
       })
@@ -374,7 +386,7 @@ export class UserComponent implements OnInit {
     const token = this.cookieService.get('userToken');
     const userAppRoleUuid = this.user_application_role_uuid;
     const userFormValue = this.form.value;
-    const updateData = {
+    const updateDataUser = {
         user_name: this.user_name, 
         user_email: this.user_email, 
         personal_name: this.personal_name, 
@@ -390,7 +402,7 @@ export class UserComponent implements OnInit {
     }
 
     axios.put(`${this.apiUrl}/superadmin/user/update/${userAppRoleUuid}`,
-      updateData,
+      updateDataUser,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -406,6 +418,7 @@ export class UserComponent implements OnInit {
             icon: 'success',
             timer: 1500
           })
+          console.log(response);
           $('#editUserModal').modal('hide');
         })
         .catch((error) => {
