@@ -20,21 +20,29 @@ export const ROUTES: RouteInfo[] = [
     dropdown: true,
     submenu: [
       {
-        path: '/main/component/form-itcm',
-        title: 'ITCM',
+        path: '/main/component/form-list',
+        title: 'Form List',
         icon: 'bi bi-file-earmark',
         class: '',
         extralink: false,
         submenu: []
       },
-      {
-        path: '/main/component/form-da',
-        title: 'DA',
-        icon: 'bi bi-file-earmark',
-        class: '',
-        extralink: false,
-        submenu: []
-      }
+      // {
+      //   path: '/main/component/form-itcm',
+      //   title: 'ITCM',
+      //   icon: 'bi bi-file-earmark',
+      //   class: '',
+      //   extralink: false,
+      //   submenu: []
+      // },
+      // {
+      //   path: '/main/component/form-da',
+      //   title: 'DA',
+      //   icon: 'bi bi-file-earmark',
+      //   class: '',
+      //   extralink: false,
+      //   submenu: []
+      // }
     ]
   },
   {
@@ -54,8 +62,8 @@ export const ROUTES: RouteInfo[] = [
         submenu: []
       },
       {
-        path: '/main/component/doc-settings',
-        title: 'Setting Documents',
+        path: '/main/component/document-control',
+        title: 'Document Control',
         icon: 'bi bi-file-plus',
         class: '',
         extralink: false, 

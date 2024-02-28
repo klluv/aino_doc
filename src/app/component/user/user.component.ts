@@ -6,8 +6,6 @@ import Swal from 'sweetalert2';
 import { UserService } from '../component-service/user-service/user-service.service';
 import { CommonModule, DatePipe } from '@angular/common';
 
-
-
 declare var $: any;
 
 interface Users {
@@ -48,7 +46,7 @@ interface Division {
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
-})  
+})
 export class UserComponent implements OnInit {
 
   searchText: string = '';
@@ -75,11 +73,7 @@ export class UserComponent implements OnInit {
   application_uuid: string = '';
   application_title: string = '';
   showPassword: boolean = false;
-
-  existingApp: string = '';
-  existingRole: string = '';
-  existingDivision: string = '';
-  
+  maxBirthdayDate: string = '';
 
   constructor(
     private cookieService: CookieService,
@@ -110,9 +104,31 @@ export class UserComponent implements OnInit {
       division_uuid: [''],
     });
 
+    let auxDate = this.substractYearsToDate(new Date(), 0);
+    this.maxBirthdayDate = this.getDateFormateForSearch(auxDate);
+
+    // const today = new Date();
+    // const year = today.getFullYear();
+    // const month = ('0' + (today.getMonth() + 1)).slice(-2);
+    // const day = ('0' + today.getDate()).slice(-2);
+
+    // this.maxDate = `${day}-${month}-${year}`;
+
     this.appData();
     this.roleData();
     this.divisionData();
+  }
+
+  substractYearsToDate(auxDate: Date, years: number): Date {
+    auxDate.setFullYear(auxDate.getFullYear() - years);
+    return auxDate;
+  }
+
+  getDateFormateForSearch(date: Date): string {
+    let year = date.toLocaleDateString('es', { year: 'numeric' });
+    let month = date.toLocaleDateString('es', { month: '2-digit' });
+    let day = date.toLocaleDateString('es', { day: '2-digit' });
+    return `${year}-${month}-${day}`;
   }
 
   matchesSearch(item: Users): boolean {
@@ -251,18 +267,17 @@ export class UserComponent implements OnInit {
       this.dataListRole = [];
     }
   }
-  
 
   roleByAppData(application_uuid: string): void {
-    axios.get(`${this.apiUrl}/list/role/${this.application_uuid}`)
-    .then((response) => {
-      this.dataListRole = response.data;
-    })
-    .catch((error) => {
-      if(error.response.status === 500) {
-        console.log(error.response.data.message)
-      }
-    })
+    axios.get(`${this.apiUrl}/list/role/${application_uuid}`)
+      .then((response) => {
+        this.dataListRole = response.data;
+      })
+      .catch((error) => {
+        if (error.response.status === 500) {
+          console.log(error.response.data.message)
+        }
+      })
   }
 
   divisionData(): void {
@@ -277,20 +292,26 @@ export class UserComponent implements OnInit {
       })
   }
 
-  AddUser() {
+  addUser(): void {
     const token = this.cookieService.get('userToken');
     const userFormValue = this.form.value;
     const user = {
       user_name: this.user_name,
       user_email: this.user_email,
-      user_password: this.user_password,
       personal_name: this.personal_name,
+      user_password: this.user_password,
       personal_birthday: this.personal_birthday,
       personal_gender: this.personal_gender,
       personal_phone: this.personal_phone,
       personal_address: this.personal_address,
       applicationRole: {
-        application_uuid: userFormValue.application_uuid,
+        _application_uuid: userFormValue.application_uuid,
+        get application_uuid() {
+          return this._application_uuid;
+        },
+        set application_uuid(value) {
+          this._application_uuid = value;
+        },
         role_uuid: userFormValue.role_uuid,
         division_uuid: userFormValue.division_uuid,
       }
@@ -303,45 +324,52 @@ export class UserComponent implements OnInit {
         }
       })
       .then((response) => {
-        console.log(response.data.applicationRole.application_uuid)
         console.log(response.data.message);
         this.fetchDataUser();
         Swal.fire({
           title: 'Success',
           text: response.data.message,
-          icon: 'success'
+          icon: 'success',
         });
         $('#addUserModal').modal('hide');
       })
       .catch((error) => {
-        if (error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
+        if (error.response.status === 500 || error.response.status === 400) {
+          console.log(error.response.data.message)
           Swal.fire({
             title: 'Error',
             text: error.response.data.message,
-            icon: 'error'
-          });
+            icon: 'error',
+          })
         } else {
-          Swal.fire({
-            title: 'Error',
-            text: error.response.data.message,
-            icon: 'error'
-          });
+          console.log(error)
         }
       })
   }
 
-  editUserModal(user_application_role_uuid: string): void {
-    this.form.patchValue({
-      application_uuid: this.existingApp,
-      role_uuid: this.existingRole,
-      division_uuid: this.existingDivision
-    })
-  }
+
+
   getSpecUser(user_application_role_uuid: string): void {
-    axios.get(`${this.apiUrl}/user/` + user_application_role_uuid)
+    axios.get(`${this.apiUrl}/user/${user_application_role_uuid}`)
       .then((response) => {
         const userData = response.data;
         console.log(userData);
+        this.user_application_role_uuid = userData.user_application_role_uuid;
+
+        const existingApplication = this.dataListApplication.find((app) => app.application_title
+          === userData.application_title);
+
+        const existingRole = this.dataListRole.find((role) => role.role_title
+          === userData.role_title);
+
+        const existingDivision = this.dataListDivision.find((division) => division.division_title
+          === userData.division_title);
+
+        this.form.patchValue({
+          application_uuid: existingApplication ? existingApplication.application_uuid : '',
+          role_uuid: existingRole ? existingRole.role_uuid : '',
+          division_uuid: existingDivision ? existingDivision.division_uuid : '',
+        })
 
         userData.personal_birthday = this.datePipe.transform(userData.personal_birthday, 'yyyy-MM-dd');
 
@@ -354,10 +382,6 @@ export class UserComponent implements OnInit {
         this.personal_gender = userData.personal_gender;
         this.personal_phone = userData.personal_phone;
         this.personal_address = userData.personal_address;
-
-        this.existingApp = userData.applicationRole.application_uuid;
-      this.existingRole = userData.applicationRole.role_uuid;
-      this.existingDivision = userData.applicationRole.division_uuid;
 
         $('#editUserModal').modal('show');
       })
@@ -387,58 +411,57 @@ export class UserComponent implements OnInit {
     const userAppRoleUuid = this.user_application_role_uuid;
     const userFormValue = this.form.value;
     const updateDataUser = {
-        user_name: this.user_name, 
-        user_email: this.user_email, 
-        personal_name: this.personal_name, 
-        personal_birthday: this.personal_birthday, 
-        personal_gender: this.personal_gender, 
-        personal_phone: this.personal_phone, 
-        personal_address: this.personal_address,
-        applicationRole: {
-          application_uuid: userFormValue.application_uuid,
-          role_uuid: userFormValue.role_uuid,
-          division_uuid: userFormValue.division_uuid,
+      user_name: this.user_name,
+      user_email: this.user_email,
+      personal_name: this.personal_name,
+      personal_birthday: this.personal_birthday,
+      personal_gender: this.personal_gender,
+      personal_phone: this.personal_phone,
+      personal_address: this.personal_address,
+      applicationRole: {
+        application_uuid: userFormValue.application_uuid,
+        role_uuid: userFormValue.role_uuid,
+        division_uuid: userFormValue.division_uuid,
       }
     }
 
     axios.put(`${this.apiUrl}/superadmin/user/update/${userAppRoleUuid}`,
       updateDataUser,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        console.log(response.data.message);
+        this.fetchDataUser();
+        Swal.fire({
+          title: 'Success',
+          text: response.data.message,
+          icon: 'success',
+          timer: 1500
         })
-        .then((response) => {
-          console.log(response.data.message);
-          this.fetchDataUser();
-          this.form.reset();
+        console.log(response)
+        $('#editUserModal').modal('hide');
+      })
+      .catch((error) => {
+        if (error.response.status === 400 || error.response.status === 422 || error.response.status === 404 || error.response.status === 500) {
+          console.log(error.response.data.message)
           Swal.fire({
-            title: 'Success',
-            text: response.data.message,
-            icon: 'success',
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
             timer: 1500
           })
-          console.log(response);
-          $('#editUserModal').modal('hide');
-        })
-        .catch((error) => {
-          if(error.response.status === 400 || error.response.status === 422 || error.response.status === 404 || error.response.status === 500) {
-            console.log(error.response.data.message)
-            Swal.fire({
-              title: 'Error',
-              text: error.response.data.message,
-              icon: 'error',
-              timer: 1500
-            })
-          } else {
-            Swal.fire({
-              title: 'Error',
-              text: 'Terjadi kesalahan',
-              icon: 'error',
-              timer: 1500
-            })
-          }
-        })
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Terjadi kesalahan',
+            icon: 'error',
+            timer: 1500
+          })
+        }
+      })
 
   }
 

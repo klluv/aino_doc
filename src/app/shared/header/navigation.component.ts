@@ -158,6 +158,8 @@ export class NavigationComponent implements AfterViewInit {
           title: 'Success',
           text: 'Logout Berhasil',
           icon: 'success',
+          timer: 1500,
+          showConfirmButton: false
         });
         this.router.navigateByUrl('/login');
       })

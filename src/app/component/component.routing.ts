@@ -8,11 +8,7 @@ import { BadgeComponent } from './badge/badge.component';
 import { NgbdButtonsComponent } from './buttons/buttons.component';
 import { CardsComponent } from './card/card.component';
 import { TableComponent } from './table/table.component';
-import { ListAllRoleComponent } from './list-all-role/list-all-role.component';
-import { ListAllApplicationComponent } from './list-all-app/list-all-app.component';
-import { ListAllDivisionComponent } from './list-all-division/list-all-division.component';
 import { AddUserComponent } from './add-user/add-user.component';
-import { AddDataComponent } from './add-data/add-data.component';
 import { UserComponent } from './user/user.component';
 import { AccessGroupComponent } from './access-group/access-group.component';
 import { ApplicationComponent } from './application/application.component';
@@ -21,6 +17,7 @@ import { MasterDocComponent } from './master-doc/master-doc.component';
 import { FormDaComponent } from './form-da/form-da.component';
 import { FormItcmComponent } from './form-itcm/form-itcm.component';
 import { AppRoleComponent } from './app-role/app-role.component';
+import { FormListComponent } from './form-list/form-list.component';
 
 
 
@@ -62,24 +59,8 @@ export const ComponentsRoutes: Routes = [
 				component: NgbdButtonsComponent
 			},
 			{
-				path: 'list-all-role',
-				component: ListAllRoleComponent
-			},
-			{
-				path: 'list-all-division',
-				component: ListAllDivisionComponent
-			},
-			{
-				path: 'list-all-app',
-				component: ListAllApplicationComponent
-			},
-			{
 				path: 'add-user',
 				component: AddUserComponent
-			},
-			{
-				path: 'add-data',
-				component: AddDataComponent,
 			},
 			{
 				path: 'user-control',
@@ -102,8 +83,12 @@ export const ComponentsRoutes: Routes = [
 				component: AppRoleComponent
 			},
 			{
-				path: 'doc-settings',
+				path: 'document-control',
 				component: MasterDocComponent
+			},
+			{
+				path: 'form-list',
+				component: FormListComponent
 			},
 			{
 				path: 'form-da',

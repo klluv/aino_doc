@@ -3,7 +3,7 @@ import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
 import { MasterDocServiceService } from '../component-service/master-doc-service/master-doc-service.service';
-
+import { environment } from 'src/environments/environment';
 
 declare var $: any;
 
@@ -39,7 +39,6 @@ export class MasterDocComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.fetchDataDoc();
   }
 
@@ -55,7 +54,7 @@ export class MasterDocComponent implements OnInit {
   }
 
   fetchDataDoc(): void {
-    axios.get(`${this.apiUrl}/document/all`) 
+    axios.get(`${environment.apiUrl2}/document`) 
       .then((response) => {
         this.dataListDoc = response.data;
         this.masterDocService.updateDataListDoc(this.dataListDoc);
@@ -80,7 +79,7 @@ export class MasterDocComponent implements OnInit {
   addMasterDoc() {
     const token = this.cookieService.get('userToken');
 
-    axios.post(`${this.apiUrl}/superadmin/document/add`,
+    axios.post(`${environment.apiUrl2}/api/document/add`,
     { document_code: this.document_code, document_name: this.document_name, document_format_number: this.document_format_number },
     {
       headers: {
@@ -125,7 +124,7 @@ export class MasterDocComponent implements OnInit {
   }
 
   getSpecificDoc(documentUuid: string): void {
-    axios.get(`${this.apiUrl}/document/` + documentUuid)
+    axios.get(`${environment.apiUrl2}/document/` + documentUuid)
       .then((response) => {
         console.log(response.data)
         const documentData = response.data;
@@ -162,7 +161,7 @@ export class MasterDocComponent implements OnInit {
     const token = this.cookieService.get('userToken');
     const documentUuid = this.document_uuid;
     
-    axios.put(`${this.apiUrl}/superadmin/document/update/${documentUuid}`,
+    axios.put(`${environment.apiUrl2}/api/document/update/${documentUuid}`,
     { document_code: this.document_code, document_name: this.document_name, document_format_number: this.document_format_number },
     {
       headers: {

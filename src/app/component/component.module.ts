@@ -12,22 +12,16 @@ import { NgbdnavBasicComponent } from './nav/nav.component';
 import { NgbdButtonsComponent } from './buttons/buttons.component';
 import { CardsComponent } from './card/card.component';
 import { TableComponent } from "./table/table.component";
-import { ListAllRoleComponent } from './list-all-role/list-all-role.component';
-import { ListAllDivisionComponent } from './list-all-division/list-all-division.component';
-import { ListAllApplicationComponent } from './list-all-app/list-all-app.component';
 import { AddUserComponent } from './add-user/add-user.component';
-import { AddDataComponent } from './add-data/add-data.component';
-import { EditDivisionComponent } from './list-all-division/edit-division/edit-division.component';
-import { EditRoleComponent } from './list-all-role/edit-role/edit-role.component';
 import { UserComponent } from './user/user.component';
 import { AccessGroupComponent } from './access-group/access-group.component';
 import { ApplicationComponent } from './application/application.component';
 import { DivisionComponent } from './division/division.component';
-import { UserAddComponent } from './user/user-add/user-add.component';
 import { MasterDocComponent } from './master-doc/master-doc.component';
 import { FormDaComponent } from './form-da/form-da.component';
 import { FormItcmComponent } from './form-itcm/form-itcm.component';
 import { AppRoleComponent } from './app-role/app-role.component';
+import { FormListComponent } from './form-list/form-list.component';
 
 
 @NgModule({
@@ -46,22 +40,16 @@ import { AppRoleComponent } from './app-role/app-role.component';
     TableComponent
   ],
   declarations: [
-      ListAllRoleComponent,
-       ListAllDivisionComponent,
-       ListAllApplicationComponent,
        AddUserComponent,
-       AddDataComponent,
-       EditDivisionComponent,
-       EditRoleComponent,
        UserComponent,
        AccessGroupComponent,
        ApplicationComponent,
        DivisionComponent,
-       UserAddComponent,
        MasterDocComponent,
        FormDaComponent,
        FormItcmComponent,
        AppRoleComponent,
+       FormListComponent,
   ],
 })
 export class ComponentsModule { }

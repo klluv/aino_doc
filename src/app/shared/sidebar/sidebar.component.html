@@ -14,7 +14,7 @@
         </a>
 
         <ul *ngIf="sidebarnavItem.submenu.length !== 0 && isDropdownOpen && sidebarnavItem.title == isDropdownMenuTitleActive" class="nav-submenu" [ngClass]="{'in': isSubMenuActive(sidebarnavItem)}">
-          <li class="sidebar-item ms-4 ps-3" [class.active]="showMenu === subItem.title" *ngFor="let subItem of sidebarnavItem.submenu">
+          <li class="sidebar-item ms-4 ps-3 " [class.active]="showMenu === subItem.title" *ngFor="let subItem of sidebarnavItem.submenu">
             <a class="sidebar-link waves-effect waves-dark" [routerLink]="[subItem.path]" (click)="addExpandClass(subItem.title)">
               <span class="hide-menu">{{ subItem.title }}</span>
             </a>

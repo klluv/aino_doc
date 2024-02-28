@@ -1,0 +1,104 @@
+<h1>Formulir</h1>
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3>Daftar Formulir</h3>
+    <button class="btn btn-outline-primary mb-3 btn-sm" (click)="openModalAddForm()"><i class="bi bi-plus-lg"></i>
+      Tambah Formulir</button>
+  </div>
+  <div class="card-body">
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+      <input type="text" class="form-control" name="searchText" placeholder="Search" aria-describedby="button-addon2">
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">No. Ticket</th>
+            <th scope="col">Status</th>
+            <th scope="col">User</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let itemForm of (formService.dataListForm$ | async) let x = index">
+            <ng-container *ngIf="matchesSearch(itemForm)">
+              <td scope="row">{{ x+1 }}</td>
+              <td scope="row">{{ itemForm.form_number }}</td>
+              <td scope="row">{{ itemForm.document_name }}</td>
+              <td scope="row">{{ itemForm.form_ticket }} </td>
+              <td scope="row">{{ itemForm.form_status }} </td>
+              <td scope="row">{{ itemForm.created_by }}</td>
+              <td>
+                <button class="btn btn-warning btn-sm"><i class="bi bi-pen"></i></button>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- add form modal -->
+<div class="modal fade" id="addFormModal" tabindex="-1" aria-labelledby="addFormModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addFormModalLabel">Tambah Formulir</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #formForm="ngForm">
+          <div class="row">
+            <div class="col-md-12">
+              <label class="form-label">Nomor Formulir</label>
+              <input type="text" name="form_number" [(ngModel)]="form_number" required class="form-control"
+                placeholder="Enter your form number">
+            </div>
+            <div class="col-md-12 mt-3">
+              <label class="form-label">Nomor Ticket</label>
+              <input type="text" name="form_ticket" [(ngModel)]="form_ticket" required class="form-control"
+                placeholder="Enter your form ticket">
+            </div>
+            <div class="col-md-12 mt-3">
+              <label class="form-label">Dokumen</label>
+              <select class="form-select" data-test="form-select" aria-label="Select Document" name="document_uuid"
+                [(ngModel)]="document_uuid">
+                <option value="" disabled selected>Pilih Dokumen</option>
+                <option *ngFor="let doc of dataListDocument" [value]="doc.document_uuid">{{ doc.document_name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addForm()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- edit form modal -->
+<div class="modal fade" id="editFormModal" tabindex="-1" aria-labelledby="editFormModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editFormModalLabel">Edit Formulir</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h1>test edit</h1>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
