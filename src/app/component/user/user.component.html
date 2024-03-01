@@ -120,6 +120,7 @@
                   <option value="" disabled selected>Pilih Aplikasi</option>
                   <option *ngFor="let app of dataListApplication" [value]="app.application_uuid">{{ app.application_title }}</option>
                 </select>
+                <p>{{ application_uuid }}</p>
               </div>
               <div class="col-md-6">
                 <label class="col-sm-6 form-label">Role</label>

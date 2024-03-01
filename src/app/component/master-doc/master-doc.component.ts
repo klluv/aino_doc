@@ -79,7 +79,7 @@ export class MasterDocComponent implements OnInit {
   addMasterDoc() {
     const token = this.cookieService.get('userToken');
 
-    axios.post(`${environment.apiUrl2}/api/document/add`,
+    axios.post(`${environment.apiUrl2}/superadmin/document/add`,
     { document_code: this.document_code, document_name: this.document_name, document_format_number: this.document_format_number },
     {
       headers: {

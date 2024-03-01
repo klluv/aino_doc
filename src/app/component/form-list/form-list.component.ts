@@ -52,14 +52,16 @@ export class FormListComponent implements OnInit {
   form_code: string = '';
   form_name: string = '';
   document_format_number: string = '';
-  
+
+  isPublished: boolean = true;
+
   constructor(
     private cookieService: CookieService,
     public formService: FormServiceService,
     private fb: FormBuilder,
     private formGroupDirective: FormGroupDirective
-  ) { 
-   }
+  ) {
+  }
 
   ngOnInit(): void {
     this.fetchDataForm();
@@ -73,7 +75,7 @@ export class FormListComponent implements OnInit {
       form_name: [this.form_name],
       document_format_number: [this.document_format_number],
     });
-    
+
   }
 
   matchesSearch(item: forms): boolean {
@@ -82,12 +84,12 @@ export class FormListComponent implements OnInit {
       item.form_uuid.toLowerCase().includes(searchLowerCase) ||
       item.form_number.toLowerCase().includes(searchLowerCase) ||
       item.form_ticket.toLowerCase().includes(searchLowerCase) ||
-      item.form_status.toLowerCase().includes(searchLowerCase) 
+      item.form_status.toLowerCase().includes(searchLowerCase)
     );
   }
-  
+
   fetchDataForm(): void {
-    axios.get(`${environment.apiUrl2}/form`) 
+    axios.get(`${environment.apiUrl2}/form`)
       .then((response) => {
         console.log(response.data);
         this.dataListForm = response.data;
@@ -99,7 +101,7 @@ export class FormListComponent implements OnInit {
   }
 
   fetchDataDocument(): Promise<void> {
-    return axios.get(`${environment.apiUrl2}/document`) 
+    return axios.get(`${environment.apiUrl2}/document`)
       .then((response) => {
         this.dataListDocument = response.data;
         console.log(this.dataListDocument);
@@ -108,7 +110,7 @@ export class FormListComponent implements OnInit {
         console.log(error);
       });
   }
-  
+
 
   openModalAddForm() {
     this.fetchDataDocument().then(() => {
@@ -116,26 +118,34 @@ export class FormListComponent implements OnInit {
       this.form_number = '';
       this.form_ticket = '';
       this.document_uuid = '';
+      this.isPublished = false;
     });
   }
-  
 
   addForm() {
     const token = this.cookieService.get('userToken');
+    
+    const formData = {
+      form_ticket: this.form_ticket,
+      document_uuid: this.document_uuid,
+      isPublished: this.isPublished ? true : false
+    };
+
+    console.log(formData);
 
     axios.post(`${environment.apiUrl2}/api/form/add`, {
-        formData: {
-          form_number: this.form_number,
-          form_ticket: this.form_ticket,
-          document_uuid: this.document_uuid,
-        }
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
+      isPublished: this.isPublished ? true : false,
+      formData: {
+        form_ticket: this.form_ticket,
+        document_uuid: this.document_uuid,
+      } },
+      {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then((response) => {
-        console.log(response.status);
+        console.log(response.data);
         this.fetchDataForm();
         Swal.fire({
           icon: 'success',
@@ -147,15 +157,34 @@ export class FormListComponent implements OnInit {
         this.form_number = '';
         this.form_ticket = '';
         this.document_uuid = '';
+        this.isPublished = false;
+      })
+      .catch((error) => {
+        if (error.response.status === 422 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      });
+  }
+
+  getSpecificForm(form_uuid: string) {
+    axios.get(`${environment.apiUrl2}/form/` + form_uuid)
+      .then((response) => {
+        console.log(response.data)
+        const form = response.data;
+        this.form_uuid = form.form_uuid;
+        this.form_number = form.form_number;
+        this.form_ticket = form.form_ticket;
+        this.document_uuid = form.document_uuid;
+        this.isPublished = form.isPublished;
       })
       .catch((error) => {
         console.log(error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Formulir gagal ditambahkan',
-          showConfirmButton: false,
-          timer: 1500
-        })
       });
   }
 

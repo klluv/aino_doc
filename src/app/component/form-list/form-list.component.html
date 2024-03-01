@@ -33,7 +33,7 @@
               <td scope="row">{{ itemForm.form_status }} </td>
               <td scope="row">{{ itemForm.created_by }}</td>
               <td>
-                <button class="btn btn-warning btn-sm"><i class="bi bi-pen"></i></button>
+                <button class="btn btn-warning btn-sm" (click)="getSpecificForm(itemForm.form_uuid)"><i class="bi bi-pen"></i></button>
               </td>
             </ng-container>
           </tr>
@@ -57,7 +57,7 @@
             <div class="col-md-12">
               <label class="form-label">Nomor Formulir</label>
               <input type="text" name="form_number" [(ngModel)]="form_number" required class="form-control"
-                placeholder="Enter your form number">
+                placeholder="form number will generate automaticly" readonly disabled>
             </div>
             <div class="col-md-12 mt-3">
               <label class="form-label">Nomor Ticket</label>
@@ -72,6 +72,23 @@
                 <option *ngFor="let doc of dataListDocument" [value]="doc.document_uuid">{{ doc.document_name }}
                 </option>
               </select>
+            </div>
+            <div class="col-md-12 mt-4 mb-3">
+              <!-- <label class="form-label mb-3" for="flexSwitchCheckDefault">Apakah akan langsung dipublish?</label>
+              <div class="form-check form-switch d-flex">
+                <label class="form-check-label me-2" for="flexSwitchCheckDefault">Draft</label>
+                <input class="form-check-input ms-1" type="checkbox" role="switch" id="isPublished" name="isPublished" [(ngModel)]="isPublished" (change)="toggleCheckbox()">
+                <label class="form-check-label ms-2" for="flexSwitchCheckDefault">Publish</label>
+              </div> -->
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="true" name="isPublished" [(ngModel)]="isPublished" value="true">
+                <label class="form-check-label" for="true">Publish</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="false" name="isPublished" [(ngModel)]="isPublished" value="false">
+                <label class="form-check-label" for="false">Draft</label>
+              </div>
+              <h5>{{ isPublished }} </h5>
             </div>
           </div>
         </form>
@@ -93,7 +110,33 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h1>test edit</h1>
+        <form #docForm="ngForm">
+          <div class="mb-3">
+            <label class="col-sm-3 col-form-label">Nomor Formulir</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Enter your form number" [(ngModel)]="form_number"
+                name="form_number" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="col-sm-3 col-form-label">Nomor Ticket</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Enter your form ticket" [(ngModel)]="form_ticket"
+                name="form_ticket" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="col-sm-3 col-form-label">Dokumen</label>
+            <div class="col-sm-9">
+              <select class="form-select" data-test="form-select" aria-label="Select Document" name="document_uuid"
+                [(ngModel)]="document_uuid">
+                <option value="" disabled selected>Pilih Dokumen</option>
+                <option *ngFor="let doc of dataListDocument" [value]="doc.document_uuid">{{ doc.document_name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -305,18 +305,21 @@ export class UserComponent implements OnInit {
       personal_phone: this.personal_phone,
       personal_address: this.personal_address,
       applicationRole: {
-        _application_uuid: userFormValue.application_uuid,
-        get application_uuid() {
-          return this._application_uuid;
-        },
-        set application_uuid(value) {
-          this._application_uuid = value;
-        },
+        application_uuid: this.application_uuid,
+        
+        // _application_uuid: userFormValue.application_uuid,
+        // get application_uuid() {
+        //   return this._application_uuid;
+        // },
+        // set application_uuid(value) {
+        //   this._application_uuid = value;
+        // },
         role_uuid: userFormValue.role_uuid,
         division_uuid: userFormValue.division_uuid,
       }
     }
 
+    console.log(user, userFormValue);
     axios.post(`${this.apiUrl}/superadmin/user/add`, user,
       {
         headers: {

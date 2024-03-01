@@ -73,3 +73,9 @@ h1 {
 .btn-secondary:hover {
   background-color: darken 10%;
 }
+
+/* Checkbox styling */
+.form-check-input[type="checkbox"] {
+  width: 2.5rem;
+  height: 1rem;
+}
