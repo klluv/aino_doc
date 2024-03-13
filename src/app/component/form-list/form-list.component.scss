@@ -74,8 +74,12 @@ h1 {
   background-color: darken 10%;
 }
 
-/* Checkbox styling */
-.form-check-input[type="checkbox"] {
-  width: 2.5rem;
-  height: 1rem;
+/* Untuk memperbesar ukuran checkbox */
+input[type="checkbox"].form-check-input {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  border-radius: 7px;
 }

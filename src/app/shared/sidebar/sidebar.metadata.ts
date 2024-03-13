@@ -7,4 +7,6 @@ export interface RouteInfo {
   extralink: boolean;
   submenu: RouteInfo[];
   dropdown?: boolean;
+  role_code?: string[];
 }
+

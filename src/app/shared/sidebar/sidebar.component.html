@@ -13,13 +13,17 @@
           <span class="menu-arrow" *ngIf="sidebarnavItem.dropdown">&#9662;</span>
         </a>
 
-        <ul *ngIf="sidebarnavItem.submenu.length !== 0 && isDropdownOpen && sidebarnavItem.title == isDropdownMenuTitleActive" class="nav-submenu" [ngClass]="{'in': isSubMenuActive(sidebarnavItem)}">
-          <li class="sidebar-item ms-4 ps-3 " [class.active]="showMenu === subItem.title" *ngFor="let subItem of sidebarnavItem.submenu">
-            <a class="sidebar-link waves-effect waves-dark" [routerLink]="[subItem.path]" (click)="addExpandClass(subItem.title)">
-              <span class="hide-menu">{{ subItem.title }}</span>
-            </a>
-          </li>
+        <ul class="nav flex-column sub-menu" *ngIf="sidebarnavItem.submenu">
+          <ng-container *ngFor="let subItem of sidebarnavItem.submenu">
+            <li class="sidebar-item ms-4 ps-3" [class.active]="showMenu === subItem.title" *ngIf="!subItem.role_code || subItem.role_code.includes(role_code)">
+              <a class="sidebar-link waves-effect waves-dark" [routerLink]="[subItem.path]" (click)="addExpandClass(subItem.title)">
+                <span class="hide-menu">{{ subItem.title }}</span>
+              </a>
+            </li>
+          </ng-container>
         </ul>
+        
+        
       </li>
     </ng-container>
   </ul>

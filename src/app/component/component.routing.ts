@@ -6,7 +6,6 @@ import { NgbdDropdownBasicComponent } from './dropdown-collapse/dropdown-collaps
 import { NgbdnavBasicComponent } from './nav/nav.component';
 import { BadgeComponent } from './badge/badge.component';
 import { NgbdButtonsComponent } from './buttons/buttons.component';
-import { CardsComponent } from './card/card.component';
 import { TableComponent } from './table/table.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { UserComponent } from './user/user.component';
@@ -29,10 +28,6 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'table',
 				component: TableComponent
-			},
-			{
-				path: 'card',
-				component: CardsComponent
 			},
 			{
 				path: 'pagination',

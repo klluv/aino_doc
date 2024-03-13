@@ -306,7 +306,7 @@ export class UserComponent implements OnInit {
       personal_address: this.personal_address,
       applicationRole: {
         application_uuid: this.application_uuid,
-        
+
         // _application_uuid: userFormValue.application_uuid,
         // get application_uuid() {
         //   return this._application_uuid;
@@ -465,9 +465,7 @@ export class UserComponent implements OnInit {
           })
         }
       })
-
   }
-
 }
 
 export { Users };

@@ -49,6 +49,8 @@ export class FormListComponent implements OnInit {
   form_ticket: string = '';
   form_status: string = '';
   document_uuid: string = '';
+  selectedDocumentUuid: string = '';
+  document_name: string = '';
   form_code: string = '';
   form_name: string = '';
   document_format_number: string = '';
@@ -66,16 +68,18 @@ export class FormListComponent implements OnInit {
   ngOnInit(): void {
     this.fetchDataForm();
     this.form = this.fb.group({
-      form_uuid: [this.form_uuid],
-      form_number: [this.form_number],
-      form_ticket: [this.form_ticket],
-      form_status: [this.form_status],
-      document_uuid: [this.document_uuid],
-      form_code: [this.form_code],
-      form_name: [this.form_name],
-      document_format_number: [this.document_format_number],
+      form_uuid: [''],
+      form_number: [''],
+      form_ticket: [''],
+      form_status: [''],
+      document_uuid: [''],
+      document_name: [''],
+      form_code: [''],
+      form_name: [''],
+      document_format_number: [''],
     });
 
+    this.fetchDataDocument();
   }
 
   matchesSearch(item: forms): boolean {
@@ -88,6 +92,15 @@ export class FormListComponent implements OnInit {
     );
   }
 
+  profileData(): void {
+    axios.get(`${environment.apiUrl2}/auth/my/profile`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   fetchDataForm(): void {
     axios.get(`${environment.apiUrl2}/form`)
       .then((response) => {
@@ -100,8 +113,17 @@ export class FormListComponent implements OnInit {
       });
   }
 
-  fetchDataDocument(): Promise<void> {
-    return axios.get(`${environment.apiUrl2}/document`)
+  openModalAddForm() {
+    this.fetchDataDocument();
+    $('#addFormModal').modal('show');
+    this.form_number = '';
+    this.form_ticket = '';
+    this.document_name = '';
+    this.isPublished = false;
+  }
+
+  fetchDataDocument(): void {
+    axios.get(`${environment.apiUrl2}/document`)
       .then((response) => {
         this.dataListDocument = response.data;
         console.log(this.dataListDocument);
@@ -111,39 +133,21 @@ export class FormListComponent implements OnInit {
       });
   }
 
-
-  openModalAddForm() {
-    this.fetchDataDocument().then(() => {
-      $('#addFormModal').modal('show');
-      this.form_number = '';
-      this.form_ticket = '';
-      this.document_uuid = '';
-      this.isPublished = false;
-    });
-  }
-
   addForm() {
     const token = this.cookieService.get('userToken');
-    
-    const formData = {
-      form_ticket: this.form_ticket,
-      document_uuid: this.document_uuid,
-      isPublished: this.isPublished ? true : false
-    };
-
-    console.log(formData);
 
     axios.post(`${environment.apiUrl2}/api/form/add`, {
       isPublished: this.isPublished ? true : false,
       formData: {
         form_ticket: this.form_ticket,
         document_uuid: this.document_uuid,
-      } },
-      {
-      headers: {
-        Authorization: `Bearer ${token}`
       }
-    })
+    },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then((response) => {
         console.log(response.data);
         this.fetchDataForm();
@@ -180,16 +184,84 @@ export class FormListComponent implements OnInit {
         this.form_uuid = form.form_uuid;
         this.form_number = form.form_number;
         this.form_ticket = form.form_ticket;
+        this.form_status = form.form_status;
         this.document_uuid = form.document_uuid;
+        this.document_name = form.document_name;
+        this.selectedDocumentUuid = form.document_uuid;
         this.isPublished = form.isPublished;
+
+        $('#editFormModal').modal('show');
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Terjadi kesalahan',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
       });
   }
 
-  openModalEditForm() {
-    $('#editFormModal').modal('show');
+  updateForm() {
+    const token = this.cookieService.get('userToken');
+    const formUuid = this.form_uuid;
+
+    axios.put(`${environment.apiUrl2}/api/form/update/` + formUuid, {
+      isPublished: this.isPublished ? true : false,
+      formData: {
+        form_ticket: this.form_ticket,
+        document_uuid: this.document_uuid,
+      }
+    },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+    .then((response) => {
+      console.log(response.data);
+      this.fetchDataForm();
+      $('#editFormModal').modal('hide');
+      Swal.fire({
+        icon: 'success',
+        title: 'Formulir diperbarui',
+        showConfirmButton: false,
+        timer: 1500
+      });
+
+      $('#editFormModal').modal('hide');
+    })
+    .catch((error) => {
+      if (error.response.status === 422 || error.response.status === 404 || error.response.status === 500) {
+        Swal.fire({
+          title: 'Error',
+          text: error.response.data.message,
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1500
+        }) 
+      } else {
+        Swal.fire({
+          title: 'Error',
+          text: 'Terjadi kesalahan',
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    });
   }
 }
 

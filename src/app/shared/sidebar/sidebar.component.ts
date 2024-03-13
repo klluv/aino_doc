@@ -1,10 +1,14 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, Inject } from '@angular/core';
 import { ROUTES } from './menu-items';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule, NgIf } from '@angular/common';
+import { environment } from 'src/environments/environment';
+import axios from 'axios';
+import { CookieService } from 'ngx-cookie-service';
 //declare var $: any;
+
 
 @Component({
   selector: 'app-sidebar',
@@ -20,7 +24,50 @@ export class SidebarComponent implements OnInit {
   public sidebarnavItems: RouteInfo[] = [];
   isDropdownOpen = false;
   isDropdownMenuTitleActive = "";
+  role_code = '';
+  user_uuid: any;
+  user_name: any;
+
+  constructor(
+    private modalService: NgbModal,
+    private router: Router,
+    private route: ActivatedRoute
+    , private cookieService: CookieService
+    , @Inject('apiUrl') private apiUrl: string
+  ) {}
+
   
+  // End open close
+  ngOnInit(): void {
+    this.fetchProfileData();
+  }
+  fetchProfileData() {
+    const token = this.cookieService.get('userToken');
+    
+    axios.get(`${this.apiUrl}/auth/my/profile`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then((response) => {
+      console.log(response.data)
+      this.user_uuid = response.data.user_uuid;
+      this.user_name = response.data.user_name;
+      this.role_code = response.data.role_code;
+
+      this.sidebarnavItems = ROUTES.filter(sidebarnavItem =>
+        sidebarnavItem &&
+        (!sidebarnavItem.role_code || sidebarnavItem.role_code.includes(this.role_code))
+      );
+  
+    })
+    .catch((error) => {
+      if (error.response.status === 500) {
+        console.log(error.response.data.message)
+      }
+    })
+  }
 
   // this is for the open close
   addExpandClass(element: string): void {
@@ -49,14 +96,4 @@ export class SidebarComponent implements OnInit {
   }
   
 
-  constructor(
-    private modalService: NgbModal,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
-
-  // End open close
-  ngOnInit(): void {
-    this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
-  }
 }

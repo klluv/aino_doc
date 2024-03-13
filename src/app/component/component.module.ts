@@ -10,7 +10,6 @@ import { NgbdAlertBasicComponent } from './alert/alert.component';
 import { NgbdDropdownBasicComponent } from './dropdown-collapse/dropdown-collapse.component';
 import { NgbdnavBasicComponent } from './nav/nav.component';
 import { NgbdButtonsComponent } from './buttons/buttons.component';
-import { CardsComponent } from './card/card.component';
 import { TableComponent } from "./table/table.component";
 import { AddUserComponent } from './add-user/add-user.component';
 import { UserComponent } from './user/user.component';
@@ -36,7 +35,6 @@ import { FormListComponent } from './form-list/form-list.component';
     NgbdDropdownBasicComponent,
     NgbdnavBasicComponent,
     NgbdButtonsComponent,
-    CardsComponent,
     TableComponent
   ],
   declarations: [
