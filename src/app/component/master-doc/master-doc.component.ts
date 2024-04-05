@@ -11,7 +11,6 @@ interface documents {
   document_uuid: string;
   document_code: string;
   document_name: string;
-  document_format_number: string;
 }
 
 @Component({
@@ -27,7 +26,9 @@ export class MasterDocComponent implements OnInit {
   document_uuid: string = '';
   document_code: string = '';
   document_name: string = '';
-  document_format_number: string = '';
+  user_uuid: any;
+  user_name: any;
+  role_code: any;
 
   constructor(
     private cookieService: CookieService,
@@ -40,6 +41,7 @@ export class MasterDocComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchDataDoc();
+    this.profileData();
   }
 
   dataListDoc: documents[] = [];
@@ -48,9 +50,28 @@ export class MasterDocComponent implements OnInit {
     const searchLowerCase = this.searchText.toLowerCase();
     return (
       item.document_code.toLowerCase().includes(searchLowerCase) ||
-      item.document_name.toLowerCase().includes(searchLowerCase) ||
-      item.document_format_number.toLowerCase().includes(searchLowerCase)
+      item.document_name.toLowerCase().includes(searchLowerCase)
     );
+  }
+
+  profileData(): void {
+    const token = this.cookieService.get('userToken');
+
+    axios.get(`${this.apiUrl}/auth/my/profile`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((response) => {
+        console.log(response);
+        this.user_uuid = response.data.user_uuid;
+        this.user_name = response.data.user_name;
+        this.role_code = response.data.role_code;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   fetchDataDoc(): void {
@@ -72,7 +93,6 @@ export class MasterDocComponent implements OnInit {
     $('#addDocModal').modal('show');
     this.document_code = '';
     this.document_name = '';
-    this.document_format_number = '';
   }
 
 
@@ -80,7 +100,7 @@ export class MasterDocComponent implements OnInit {
     const token = this.cookieService.get('userToken');
 
     axios.post(`${environment.apiUrl2}/superadmin/document/add`,
-    { document_code: this.document_code, document_name: this.document_name, document_format_number: this.document_format_number },
+    { document_code: this.document_code, document_name: this.document_name },
     {
       headers: {
         Authorization: `Bearer ${token}`
@@ -100,7 +120,6 @@ export class MasterDocComponent implements OnInit {
         $('#addDocModal').modal('hide');
         this.document_code = '';
         this.document_name = '';
-        this.document_format_number = '';
       })
       .catch((error) => {
         if (error.response.status === 400 || error.response.status === 422 || error.response.status === 500) {
@@ -121,7 +140,7 @@ export class MasterDocComponent implements OnInit {
           });
         }
       })
-  }
+  } 
 
   getSpecificDoc(documentUuid: string): void {
     axios.get(`${environment.apiUrl2}/document/` + documentUuid)
@@ -131,7 +150,6 @@ export class MasterDocComponent implements OnInit {
         this.document_uuid = documentData.document_uuid;
         this.document_code = documentData.document_code;
         this.document_name = documentData.document_name;
-        this.document_format_number = documentData.document_format_number;
 
         $('#editDocModal').modal('show');
       })
@@ -161,8 +179,8 @@ export class MasterDocComponent implements OnInit {
     const token = this.cookieService.get('userToken');
     const documentUuid = this.document_uuid;
     
-    axios.put(`${environment.apiUrl2}/api/document/update/${documentUuid}`,
-    { document_code: this.document_code, document_name: this.document_name, document_format_number: this.document_format_number },
+    axios.put(`${environment.apiUrl2}/superadmin/document/update/${documentUuid}`,
+    { document_code: this.document_code, document_name: this.document_name },
     {
       headers: {
         Authorization: `Bearer ${token}`

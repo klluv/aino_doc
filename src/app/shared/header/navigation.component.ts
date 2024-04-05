@@ -77,6 +77,10 @@ export class NavigationComponent implements AfterViewInit {
     });
   }
 
+  goToChangePassword() {
+    this.router.navigateByUrl('/main/profile/change-password  ');
+  }
+
   performLogout() {
     const token = this.cookieService.get('userToken');
     axios

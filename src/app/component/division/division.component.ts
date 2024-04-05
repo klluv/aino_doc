@@ -4,8 +4,6 @@ import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
 import { DivisionService } from '../component-service/division-service/division.service';
 
-
-
 declare var $: any;
 
 interface Division {
@@ -33,6 +31,9 @@ export class DivisionComponent implements OnInit {
   division_uuid: string = '';
   division_code: string = '';
   division_title: string = '';  
+  user_uuid: any;
+  user_name: any;
+  role_code: any;
 
   constructor(
     private cookieService: CookieService,
@@ -48,6 +49,7 @@ export class DivisionComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchDataDivision();
+    this.profileData();
   }
 
   matchesSearch(item: Division): boolean {
@@ -56,6 +58,26 @@ export class DivisionComponent implements OnInit {
       item.division_code.toLowerCase().includes(searchLowerCase) ||
       item.division_title.toLowerCase().includes(searchLowerCase)
     );
+  }
+
+  profileData(): void {
+    const token = this.cookieService.get('userToken');
+
+    axios.get(`http://localhost:8080/auth/my/profile`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((response) => {
+        console.log(response);
+        this.user_uuid = response.data.user_uuid;
+        this.user_name = response.data.user_name;
+        this.role_code = response.data.role_code;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   fetchDataDivision(): void {

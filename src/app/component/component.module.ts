@@ -17,10 +17,13 @@ import { AccessGroupComponent } from './access-group/access-group.component';
 import { ApplicationComponent } from './application/application.component';
 import { DivisionComponent } from './division/division.component';
 import { MasterDocComponent } from './master-doc/master-doc.component';
-import { FormDaComponent } from './form-da/form-da.component';
-import { FormItcmComponent } from './form-itcm/form-itcm.component';
 import { AppRoleComponent } from './app-role/app-role.component';
 import { FormListComponent } from './form-list/form-list.component';
+import { FormBAComponent } from './form-ba/form-ba.component';
+import { FormDAComponent } from './form-da/form-da.component';
+import { FormITCMComponent } from './form-itcm/form-itcm.component';
+import { ProductComponent } from './product/product.component';
+import { ProjectComponent } from './project/project.component';
 
 
 @NgModule({
@@ -44,10 +47,13 @@ import { FormListComponent } from './form-list/form-list.component';
        ApplicationComponent,
        DivisionComponent,
        MasterDocComponent,
-       FormDaComponent,
-       FormItcmComponent,
        AppRoleComponent,
        FormListComponent,
+       FormBAComponent,
+       FormDAComponent,
+       FormITCMComponent,
+       ProductComponent,
+       ProjectComponent
   ],
 })
 export class ComponentsModule { }

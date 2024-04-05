@@ -9,4 +9,3 @@ export interface RouteInfo {
   dropdown?: boolean;
   role_code?: string[];
 }
-

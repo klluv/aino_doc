@@ -13,12 +13,13 @@ import { AccessGroupComponent } from './access-group/access-group.component';
 import { ApplicationComponent } from './application/application.component';
 import { DivisionComponent } from './division/division.component';
 import { MasterDocComponent } from './master-doc/master-doc.component';
-import { FormDaComponent } from './form-da/form-da.component';
-import { FormItcmComponent } from './form-itcm/form-itcm.component';
 import { AppRoleComponent } from './app-role/app-role.component';
 import { FormListComponent } from './form-list/form-list.component';
-
-
+import { FormITCMComponent } from './form-itcm/form-itcm.component';
+import { FormBAComponent } from './form-ba/form-ba.component';
+import { FormDAComponent } from './form-da/form-da.component';
+import { ProductComponent } from './product/product.component';
+import { ProjectComponent } from './project/project.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -86,12 +87,24 @@ export const ComponentsRoutes: Routes = [
 				component: FormListComponent
 			},
 			{
+				path: 'ba-itcm',
+				component: FormBAComponent
+			},
+			{
 				path: 'form-da',
-				component: FormDaComponent
+				component: FormDAComponent
 			},
 			{
 				path: 'form-itcm',
-				component: FormItcmComponent
+				component: FormITCMComponent
+			},
+			{
+				path: 'product',
+				component: ProductComponent
+			},
+			{
+				path: 'project',
+				component: ProjectComponent
 			}
 		]
 	}

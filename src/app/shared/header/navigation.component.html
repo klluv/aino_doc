@@ -52,14 +52,14 @@
         class="rounded-circle"
         width="31"
       />
-      <span class="ms-2">My name {{ user_name }}</span>
+      <span class="ms-2">{{ user_name }}</span>
     </a>
     <div class="dropdown-menu-right" ngbDropdownMenu>
-      <a class="dropdown-item" href="javascript:void(0)" (click)="onProfile()"> My Profile</a>
-<!--       
+      <a class="dropdown-item" href="javascript:void(0)" (click)="goToChangePassword()">Change Password</a>
+
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="javascript:void(0)"> Inbox</a>
-      <div class="dropdown-divider"></div>   -->
+          
+      <!-- <div class="dropdown-divider"></div>   -->
       <a class="dropdown-item" href="javascript:void(0)" (click)="onLogout()"> Logout</a>
     </div>
   </li>

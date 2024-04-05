@@ -19,18 +19,40 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     dropdown: true,
     submenu: [
-      {
-        path: '/main/component/form-list',
-        title: 'Form List',
-        icon: 'bi bi-file-earmark',
-        class: '',
-        extralink: false,
-        submenu: [],
-        role_code: ['SA'],
-      },
-      
+        {
+          path: '/main/component/form-itcm',
+          title: 'Form ITCM',
+          icon: 'bi bi-file-earmark',
+          class: '',
+          extralink: false,
+          submenu: [],
+        },
+        {
+          path: '/main/component/form-da',
+          title: 'Form DA',
+          icon: 'bi bi-file-earmark',
+          class: '',
+          extralink: false,
+          submenu: [],
+        },
+        {
+          path: '/main/component/ba-itcm',
+          title: 'BA ITCM',
+          icon: 'bi bi-file-earmark',
+          class: '',
+          extralink: false,
+          submenu: [],
+        },
+        {
+          path: '/main/component/hak-akses',
+          title: 'Hak Akses',
+          icon: 'bi bi-file-earmark',
+          class: '',
+          extralink: false,
+          submenu: [],
+        }
+        
     ],
-    role_code: ['SA', ],
   },
   {
     path: '#',
@@ -47,7 +69,7 @@ export const ROUTES: RouteInfo[] = [
         class: '',
         extralink: false,
         submenu: [],
-        role_code: ['SA', 'A'],
+        role_code: ['SA'],
       },
       {
         path: '/main/component/document-control',
@@ -56,6 +78,22 @@ export const ROUTES: RouteInfo[] = [
         class: '',
         extralink: false, 
         submenu: []
+      },
+      {
+        path: '/main/component/product',
+        title: 'Product',
+        icon: '',
+        class: '',
+        extralink: false,
+        submenu: [],
+      },
+      {
+        path: '/main/component/project',
+        title: 'Project',
+        icon: '',
+        class: '',
+        extralink: false,
+        submenu: [],
       },
       {
         path: '/main/component/application',

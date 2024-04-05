@@ -2,34 +2,34 @@ export interface topcard {
     bgcolor: string,
     icon: string,
     title: string,
-    subtitle: string
+    subtitle: string | number;
 }
 
 export const topcards: topcard[] = [
 
     {
         bgcolor: 'success',
-        icon: 'bi bi-wallet',
-        title: '$21k',
-        subtitle: 'Yearly Earning'
+        icon: 'bi bi-file',
+        title: 'Form DA',
+        subtitle: 0,
     },
     {
         bgcolor: 'danger',
         icon: 'bi bi-coin',
-        title: '$1k',
-        subtitle: 'Refund given'
+        title: 'Form ITCM',
+        subtitle: 0,
     },
     {
         bgcolor: 'warning',
         icon: 'bi bi-basket3',
-        title: '456',
-        subtitle: 'Yearly Project'
+        title: 'BA ITCM',
+        subtitle: 0,
     },
     {
         bgcolor: 'info',
         icon: 'bi bi-bag',
-        title: '210',
-        subtitle: 'Weekly Sales'
+        title: 'Hak Akses',
+        subtitle: ''
     },
 
 ] 

@@ -106,11 +106,10 @@ export class AppRoleComponent implements OnInit {
 
   openModalAdd() {
     $('#addAppRoleModal').modal('show');
-    this.application_role_uuid = '';
-    this.application_title = '';
-    this.role_title = '';
-    this.appData();
-    this.roleData();
+    this.form.patchValue({
+      application_uuid: '',
+      role_uuid: ''
+    })
   }
 
   appData(): void {
